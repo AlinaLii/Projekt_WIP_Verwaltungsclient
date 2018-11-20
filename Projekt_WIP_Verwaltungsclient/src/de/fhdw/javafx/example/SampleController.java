@@ -50,9 +50,9 @@ public class SampleController {
 			HttpGet get = new HttpGet("http://localhost:9998/rest/account/" + "1000");
 			HttpResponse response = client.execute(get);
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				String accountNumber = EntityUtils.toString(response.getEntity());
+				String accountJson = EntityUtils.toString(response.getEntity());
 				Gson gson = new GsonBuilder().create();
-				Account account = gson.fromJson(accountNumber, Account.class);
+				Account account = gson.fromJson(accountJson, Account.class);
 				System.out.println(account.getOwner());
 			//	ownerTextInput.setText(account.getOwner());
 				header.setText("Detailansicht Konto " + account.getNumber());

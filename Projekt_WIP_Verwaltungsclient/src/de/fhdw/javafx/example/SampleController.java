@@ -1,5 +1,6 @@
 package de.fhdw.javafx.example;
 
+
 import java.io.IOException;
 
 import org.apache.http.HttpResponse;
@@ -13,15 +14,35 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 public class SampleController {
 
-	@FXML
-	private Tab panelAccountOverview;
+    @FXML
+    private Tab panelAccountOverview;
 
-	@FXML
-	private Tab panelTransactionOverview;
+    @FXML
+    private Tab panelTransactionOverview;
+
+    @FXML
+    private Text header;
+
+    @FXML
+    private Text balanceTextView;
+
+    @FXML
+    private TableView<?> transactionTable;
+
+    @FXML
+    private Button save;
+
+    @FXML
+    private TextField ownerTextInput;
+
 
 	public SampleController() {
 		try {
@@ -33,6 +54,8 @@ public class SampleController {
 				Gson gson = new GsonBuilder().create();
 				Account account = gson.fromJson(accountNumber, Account.class);
 				System.out.println(account.getOwner());
+			//	ownerTextInput.setText(account.getOwner());
+				header.setText("Detailansicht Konto " + account.getNumber());
 				// return resultData.getResult();
 			}
 		} catch (IOException e) {

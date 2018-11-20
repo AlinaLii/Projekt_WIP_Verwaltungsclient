@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/de/fhdw/javafx/example/Kontodetailansicht.fxml</name>
-			<type>1</type>
-			<locationURI>PARENT-2-WORKSPACE_LOC/Desktop/WIP/Kontodetailansicht.fxml</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

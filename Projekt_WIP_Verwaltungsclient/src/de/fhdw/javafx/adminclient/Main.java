@@ -1,4 +1,4 @@
-package de.fhdw.javafx.example;
+package de.fhdw.javafx.adminclient;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -11,7 +11,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("Kontodetailansicht.fxml"));
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("Kontenuebersicht.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.show();

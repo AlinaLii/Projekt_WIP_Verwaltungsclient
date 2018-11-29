@@ -1,4 +1,4 @@
-package de.fhdw.javafx.example;
+package de.fhdw.javafx.adminclient;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

@@ -1,4 +1,4 @@
-package de.fhdw.javafx.example;
+package de.fhdw.javafx.adminclient;
 
 import java.math.BigDecimal;
 import java.util.Date;

@@ -4,16 +4,18 @@ package de.fhdw.javafx.adminclient;
 	import java.math.BigDecimal;
 
 	import org.apache.http.HttpResponse;
-	import org.apache.http.HttpStatus;
 	import org.apache.http.client.ClientProtocolException;
 	import org.apache.http.client.HttpClient;
 	import org.apache.http.client.methods.HttpGet;
 	import org.apache.http.client.methods.HttpPost;
 	import org.apache.http.impl.client.HttpClients;
-	import org.apache.http.util.EntityUtils;
+	import java.util.ArrayList;
+import java.util.List;
 
-	import com.google.gson.Gson;
-	import com.google.gson.GsonBuilder;
+	import org.apache.http.impl.client.DefaultHttpClient;
+	import org.apache.http.NameValuePair;
+	import org.apache.http.client.entity.UrlEncodedFormEntity;
+	import org.apache.http.message.BasicNameValuePair;
 
 	public class ServerAccess {
 
@@ -41,12 +43,12 @@ package de.fhdw.javafx.adminclient;
 
 			HttpResponse response;
 			HttpClient client = HttpClients.createDefault();
-			HttpGet get = new HttpGet(String.format("http://localhost:9998/rest/account/" + 1000));
+			HttpGet get = new HttpGet(String.format("http://localhost:9998/rest/account/" + accountNumber));
 			return response = client.execute(get);
 
 		}
 
-		public HttpResponse getAllAccountResponse(String accountNumber) throws ClientProtocolException, IOException{
+		public HttpResponse getAllAccountResponse() throws ClientProtocolException, IOException{
 
 			HttpResponse response;
 			HttpClient client = HttpClients.createDefault();
@@ -55,10 +57,42 @@ package de.fhdw.javafx.adminclient;
 
 		}
 		
-		public void postTransaction() throws ClientProtocolException, IOException{
+		public HttpResponse getFreeAccountNumberResponse() throws ClientProtocolException, IOException{
 
 			HttpResponse response;
 			HttpClient client = HttpClients.createDefault();
-			HttpPost set = new HttpPost(String.format("http://localhost:9998/rest/account/"));
+			HttpGet get = new HttpGet(String.format("http://localhost:9998/rest/freeNumber"));
+			return response = client.execute(get);
+
+		}
+
+		public HttpResponse postTransaction(String senderNumber, String receiverNumber, String amount, String reference) throws ClientProtocolException, IOException {
+
+			  HttpClient client = new DefaultHttpClient();
+			  HttpPost post = new HttpPost("http://localhost:9998/rest/transaction");
+			  List<NameValuePair> parameterList = new ArrayList<>();
+			  parameterList.add(new BasicNameValuePair("senderNumber", senderNumber));
+			  parameterList.add(new BasicNameValuePair("receiverNumber", receiverNumber));
+			  parameterList.add(new BasicNameValuePair("amount", amount));
+			  parameterList.add(new BasicNameValuePair("reference", reference));
+			  UrlEncodedFormEntity form = new UrlEncodedFormEntity(parameterList, "UTF-8");
+
+			  post.setEntity(form);
+			  HttpResponse httpResponse = client.execute(post);
+			  return httpResponse;
+		}
+
+		public HttpResponse updateOwner(String number, String owner) throws ClientProtocolException, IOException {
+
+			  HttpClient client = new DefaultHttpClient();
+			  HttpPost post = new HttpPost("http://localhost:9998/rest/updateOwner");
+			  List<NameValuePair> parameterList = new ArrayList<>();
+			  parameterList.add(new BasicNameValuePair("number", number));
+			  parameterList.add(new BasicNameValuePair("owner", owner));
+			  UrlEncodedFormEntity form = new UrlEncodedFormEntity(parameterList, "UTF-8");
+
+			  post.setEntity(form);
+			  HttpResponse httpResponse = client.execute(post);
+			  return httpResponse;
 		}
 	}

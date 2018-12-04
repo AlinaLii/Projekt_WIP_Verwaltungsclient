@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fhdw.javafx.adminclient.AccountDetailViewController">
+   <children>
+      <TabPane prefHeight="63.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="panelAccountOverview" text="Kontenübersicht" />
+        </tabs>
+      </TabPane>
+      <Text layoutX="42.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontoinhaber:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Text>
+      <Text layoutX="42.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontostand:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Text>
+      <Text fx:id="txtHeader" layoutX="42.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detailansicht Konto">
+         <font>
+            <Font size="29.0" />
+         </font></Text>
+      <ImageView fx:id="imgLogo" fitHeight="83.0" fitWidth="72.0" layoutX="888.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
+      <TableView fx:id="tabTransaction" layoutX="137.0" layoutY="299.0" prefHeight="401.0" prefWidth="733.0" style="-fx-background-color: grey;">
+        <columns>
+          <TableColumn fx:id="tabDate" prefWidth="150.0" text="Datum" />
+          <TableColumn fx:id="tabSenderReceiver" minWidth="0.0" prefWidth="144.0" text="Sender / Empfänger" />
+            <TableColumn fx:id="tabAccNumber" minWidth="0.0" prefWidth="144.0" text="Kontonummer" />
+            <TableColumn fx:id="tabAmount" minWidth="0.0" prefWidth="146.0" text="Betrag" />
+            <TableColumn fx:id="tabReference" minWidth="0.0" prefWidth="148.0" text="Verwendungszweck" />
+        </columns>
+      </TableView>
+      <Button fx:id="txtSave" layoutX="435.0" layoutY="178.0" mnemonicParsing="false" onAction="#saveBtnAction" text="Speichern" />
+      <TextField fx:id="txtOwnerTextInput" layoutX="218.0" layoutY="182.0" />
+      <Text fx:id="txtAccBalance" layoutX="218.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Button fx:id="btnBack" layoutX="15.0" layoutY="43.0" mnemonicParsing="false" onAction="#backBtnAction" text="zurück" />
+   </children>
+</AnchorPane>

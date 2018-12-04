@@ -39,6 +39,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 public class AccountViewController {
 
@@ -62,14 +63,17 @@ public class AccountViewController {
 	@FXML
 	private TableColumn<Account, BigDecimal> tabAccBalance;
 
-	@FXML
-	private ImageView imgLogoAccountView;
+    @FXML
+    private ImageView imgLogo;
 
-	@FXML
-	private Button btnRefresh;
+    @FXML
+    private Button btnRefresh;
 
-	@FXML
-	private Button btnNewAccount;
+    @FXML
+    private Button btnNewAccount;
+
+    @FXML
+    private Text txtHeader;
 
 	@FXML
 	void AccountView(ActionEvent event) {
@@ -82,13 +86,13 @@ public class AccountViewController {
 	}
 
 	@FXML
-	void newAccount(ActionEvent event) {
+	void newAccountBtnAction(ActionEvent event) {
 		try {
 			Stage stage;
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("Kontodetailansicht.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("NeuesKontoHinzufuegen.fxml"));
 			Parent root = null;
 			root = loader.<Parent>load();
-			AccountDetailViewController controller = loader.<AccountDetailViewController>getController();
+			NewAccountController controller = loader.<NewAccountController>getController();
 			Scene scene = new Scene(root);
 			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			stage.setScene(scene);
@@ -105,12 +109,15 @@ public class AccountViewController {
 
 	}
 
+	/**
+	 *
+	 * @author Alina Liedtke
+	 */
 	@FXML
 	private void initialize() {
 		try {
-			HttpClient client = HttpClients.createDefault();
-			HttpGet get = new HttpGet("http://localhost:9998/rest/allAccounts");
-			HttpResponse response = client.execute(get);
+
+			HttpResponse response = serverAccess.getAllAccountResponse();
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				String accountJson = EntityUtils.toString(response.getEntity());
 				Gson gson = new GsonBuilder().create();
@@ -149,23 +156,23 @@ public class AccountViewController {
 	void clickItem(MouseEvent mouseEvent) {
 		if (mouseEvent.getClickCount() == 2) // Checking double click
 		{
-			/*
-			 * try { /*Stage stage; FXMLLoader loader = new
-			 * FXMLLoader(getClass().getResource("Kontodetailansicht.fxml"));
-			 * Parent root = null; root = loader.<Parent>load();
-			 * AccountDetailViewController controller =
-			 * loader.<AccountDetailViewController>getController();
-			 * controller.initData("a"); Scene scene = new Scene(root); stage =
-			 * (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-			 * stage.setScene(scene); stage.show();
-			 * 
-			 * } catch (IOException e) { // TODO Auto-generated catch block
-			 * e.printStackTrace(); }
-			 */
+			try {
+				Stage stage;
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("Kontodetailansicht.fxml"));
+				Parent root = null;
+				root = loader.<Parent>load();
+				AccountDetailViewController controller = loader.<AccountDetailViewController>getController();
+				controller.initData(tabAccount.getSelectionModel().getSelectedItem());
+				Scene scene = new Scene(root);
+				stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+				stage.setScene(scene);
+				stage.show();
 
-			System.out.print("a");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-			System.out.println(tabAccount.getSelectionModel().getSelectedItem().getOwner());
 
 		}
 	}

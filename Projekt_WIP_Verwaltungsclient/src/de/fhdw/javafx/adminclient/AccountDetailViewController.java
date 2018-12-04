@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -16,7 +18,14 @@ import org.apache.http.util.EntityUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -24,7 +33,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class AccountDetailViewController {
 
@@ -39,10 +50,13 @@ public class AccountDetailViewController {
     private Tab panelTransactionOverview;
 
     @FXML
-    private Text header;
+    private Text txtHeader;
 
     @FXML
-	private TableView<TableRow> transactionTable;
+    private ImageView imgLogo;
+
+    @FXML
+	private TableView<TableRow> tabTransaction;
 
 	@FXML
 	private TableColumn<TableRow, String> tabDate;
@@ -51,36 +65,86 @@ public class AccountDetailViewController {
 	private TableColumn<TableRow, String> tabSenderReceiver;
 
 	@FXML
-	private TableColumn tabAccNumber;
+	private TableColumn<TableRow, String> tabAccNumber;
 
 	@FXML
 	private TableColumn<TableRow, BigDecimal> tabAmount;
 
 	@FXML
 	private TableColumn<TableRow, String> tabReference;
+    @FXML
+    private TextField txtOwnerTextInput;
 
     @FXML
-    private Button save;
+    private Text txtAccBalance;
+
+
+
 
     @FXML
-    private TextField ownerTextInput;
+    void backBtnAction(ActionEvent event) {
+    	try {
+			Stage stage;
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("Kontenuebersicht.fxml"));
+			Parent root = null;
+			root = loader.<Parent>load();
+			AccountViewController controller = loader.<AccountViewController>getController();
+			Scene scene = new Scene(root);
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
 
     @FXML
-    private Label balanceLabel;
+    void saveBtnAction(ActionEvent event) {
+    	try {
+
+    		   HttpResponse httpResponse = serverAccess.updateOwner(currentAccount.getNumber(), txtOwnerTextInput.getText());
+
+    		   int statusCode = httpResponse.getStatusLine().getStatusCode();
+    		   String entityMsg = "";
+    		   if (statusCode != HttpStatus.SC_NO_CONTENT) {
+    		    entityMsg = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
+    		    String errorMsg = " (Fehler " + httpResponse.getStatusLine().getStatusCode() + ")";
+    		    //errorText.setText(entityMsg + errorMsg);
+    		   }
+
+
+    		  } catch (IOException e) {
+    		   //errorText.setText("Server nicht verfügbar. Versuchen Sie es später noch mal.");
+    		  }
+    }
+
+
 
 
 
 	@FXML
 	private void initialize() {
 
-		currentAccount = ServerAccess.getAccount();
 
 
+
+
+
+
+	}
+
+ void initData(Account account) {
+		//eine globale var in klasse erstellen die current accounthei´t und dann account in die tabelle laden ->nadin
+		this.currentAccount = account;
+		System.out.println(currentAccount.getBalance());
 		tabDate.setCellValueFactory(new PropertyValueFactory<TableRow, String>("transactionDate"));
 		tabSenderReceiver.setCellValueFactory(new PropertyValueFactory<TableRow, String>("senderReceiver"));
 		tabAccNumber.setCellValueFactory(new PropertyValueFactory<TableRow, String>("accountNumber"));
 		tabAmount.setCellValueFactory(new PropertyValueFactory<TableRow, BigDecimal>("amount"));
 		tabReference.setCellValueFactory(new PropertyValueFactory<TableRow, String>("reference"));
+
+		BigDecimal accountBalance = new BigDecimal(0);
 
 		List<TableRow> tableRows = new ArrayList<TableRow>();
 		List<Transaction> transactions = currentAccount.getTransactions();
@@ -90,25 +154,29 @@ public class AccountDetailViewController {
 			if (transaction.getSender().getNumber().equals(currentAccount.getNumber())) {
 				tableRow.setSenderReceiver(transaction.getReceiver().getOwner());
 				tableRow.setAccountNumber(transaction.getReceiver().getNumber());
-
+				accountBalance = accountBalance.subtract(transaction.getAmount());
 			} else {
 				tableRow.setSenderReceiver(transaction.getSender().getOwner());
 				tableRow.setAccountNumber(transaction.getSender().getNumber());
-
+				accountBalance = accountBalance.add(transaction.getAmount());
 			}
 			tableRow.setAmount(transaction.getAmount());
 			tableRow.setReferenceString(transaction.getReference());
 			tableRows.add(tableRow);
 
+
+			String accountBalanceAsString = accountBalance.toString();
+			txtAccBalance.setText(accountBalanceAsString + " €");
+			txtHeader.setText("Detailansicht Konto " + currentAccount.getNumber());
+			txtOwnerTextInput.setText(currentAccount.getOwner());
+			serverAccess.setAccountBalance(accountBalance);
+
+			//ToDo: Spalte "Datum" breiter machen
 		}
 
+		ObservableList<TableRow> data = FXCollections.observableList(tableRows);
+		tabTransaction.setItems(data);
 
 
-	}
-
-	void initData(String x) {
-		System.out.print(x);
-	}
-
-
+}
 }

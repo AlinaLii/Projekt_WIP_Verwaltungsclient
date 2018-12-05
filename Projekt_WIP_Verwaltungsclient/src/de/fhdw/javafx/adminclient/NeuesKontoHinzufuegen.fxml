@@ -6,33 +6,36 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fhdw.javafx.adminclient.NewAccountController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="de.fhdw.javafx.adminclient.NewAccountController">
    <children>
-      <Text fx:id="txtHeader" layoutX="21.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Neues Konto hinzufügen">
+      <Text fx:id="txtHeader" layoutX="50.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Neues Konto hinzufügen">
          <font>
             <Font size="29.0" />
          </font>
       </Text>
-      <Text layoutX="48.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontoinhaber:">
+      <Text layoutX="50.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontoinhaber:">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="48.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Startkapital:">
+      <Text layoutX="50.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Startkapital:">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font size="18.0" />
          </font>
       </Text>
-      <TextField fx:id="txtAccountOwner" layoutX="180.0" layoutY="125.0" prefHeight="25.0" prefWidth="226.0" />
-      <TextField fx:id="txtStartBalance" layoutX="180.0" layoutY="258.0" prefHeight="25.0" prefWidth="226.0" />
-      <Button fx:id="btnSave" layoutX="478.0" layoutY="339.0" mnemonicParsing="false" onAction="#saveBtnAction" text="Speichern" />
-      <Button fx:id="btnCancel" layoutX="48.0" layoutY="339.0" mnemonicParsing="false" onAction="#cancelBtnAction" text="abbrechen" />
-      <Text layoutX="48.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontonummer:">
+      <TextField fx:id="txtAccountOwner" layoutX="206.0" layoutY="246.0" prefHeight="25.0" prefWidth="226.0" />
+      <TextField fx:id="txtStartBalance" layoutX="206.0" layoutY="347.0" prefHeight="25.0" prefWidth="226.0" />
+      <Button fx:id="btnSave" layoutX="872.0" layoutY="626.0" mnemonicParsing="false" onAction="#saveBtnAction" text="Speichern" />
+      <Button fx:id="btnCancel" layoutX="61.0" layoutY="626.0" mnemonicParsing="false" onAction="#cancelBtnAction" text="abbrechen" />
+      <Text layoutX="50.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontonummer:">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="txtAccountNumber" layoutX="180.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fx:id="txtAccountNumber" layoutX="206.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+         <font>
+            <Font size="18.0" />
+         </font></Text>
+      <Text fx:id="txtError" fill="RED" layoutX="50.0" layoutY="415.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="905.9999960660934" />
    </children>
 </AnchorPane>

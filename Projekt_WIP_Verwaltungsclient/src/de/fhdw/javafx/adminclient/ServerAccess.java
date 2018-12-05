@@ -21,7 +21,19 @@ import java.util.List;
 
 		static Account account;
 
+		static ArrayList accountList;
+
 		static BigDecimal accountBalance;
+
+		public static ArrayList getAccountList() {
+			return accountList;
+		}
+
+		public static void setAccountList(ArrayList accountListt) {
+			accountList = accountListt;
+
+		}
+
 
 		public static BigDecimal getAccountBalance() {
 			return accountBalance;
@@ -56,7 +68,7 @@ import java.util.List;
 			return response = client.execute(get);
 
 		}
-		
+
 		public HttpResponse getFreeAccountNumberResponse() throws ClientProtocolException, IOException{
 
 			HttpResponse response;
@@ -82,6 +94,34 @@ import java.util.List;
 			  return httpResponse;
 		}
 
+		public HttpResponse cancelReservation(String number) throws ClientProtocolException, IOException {
+
+			  HttpClient client = new DefaultHttpClient();
+			  HttpPost post = new HttpPost("http://localhost:9998/rest/recallNumberReservation");
+			  List<NameValuePair> parameterList = new ArrayList<>();
+			  parameterList.add(new BasicNameValuePair("number", number));
+			  UrlEncodedFormEntity form = new UrlEncodedFormEntity(parameterList, "UTF-8");
+
+			  post.setEntity(form);
+			  HttpResponse httpResponse = client.execute(post);
+			  return httpResponse;
+		}
+
+
+		public HttpResponse addAccount(String owner, String startBalance) throws ClientProtocolException, IOException {
+
+			  HttpClient client = new DefaultHttpClient();
+			  HttpPost post = new HttpPost("http://localhost:9998/rest/addAccount");
+			  List<NameValuePair> parameterList = new ArrayList<>();
+			  parameterList.add(new BasicNameValuePair("owner", owner));
+			  parameterList.add(new BasicNameValuePair("startBalance", startBalance));
+			  UrlEncodedFormEntity form = new UrlEncodedFormEntity(parameterList, "UTF-8");
+
+			  post.setEntity(form);
+			  HttpResponse httpResponse = client.execute(post);
+			  return httpResponse;
+		}
+
 		public HttpResponse updateOwner(String number, String owner) throws ClientProtocolException, IOException {
 
 			  HttpClient client = new DefaultHttpClient();
@@ -95,4 +135,6 @@ import java.util.List;
 			  HttpResponse httpResponse = client.execute(post);
 			  return httpResponse;
 		}
+
+
 	}

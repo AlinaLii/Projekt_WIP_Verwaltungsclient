@@ -1,10 +1,13 @@
 package de.fhdw.javafx.adminclient;
 
 import java.io.IOException;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.Tab;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EventObject;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,6 +21,7 @@ import org.apache.http.util.EntityUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,6 +48,7 @@ import javafx.scene.text.Text;
 public class AccountViewController {
 
 	ServerAccess serverAccess = new ServerAccess();
+	ArrayList accountList;
 
 	@FXML
 	private TableView<Account> tabAccount;
@@ -75,13 +80,84 @@ public class AccountViewController {
     @FXML
     private Text txtHeader;
 
-	@FXML
-	void AccountView(ActionEvent event) {
+    @FXML
+	private void initialize() {
+		accountList = ServerAccess.getAccountList();
+		fillTable();
+	}
+
+	/*@FXML
+	void TransactionView(ActionEvent event) {
+			try {
+				Stage stage;
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("Transaktionenuebersicht.fxml"));
+				Parent root = null;
+				root = loader.<Parent>load();
+				TransactionViewController controller = loader.<TransactionViewController>getController();
+				Scene scene = new Scene(root);
+				stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				stage.setScene(scene);
+				stage.show();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}*/
+   /*
+    @FXML
+    private Tab tbTransactionView;
+
+    tbTransactionView.getSelectionModel(tbTransactionView).selectedItemProperty().addListener(
+    	    new ChangeListener<Tab>() {
+    	        //@Override
+    	        public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+    	            System.out.println("Tab Selection changed");
+
+
+    	);
+
+
+
+
+
+
+    	        }}*/
+/*
+    public void TransactionView (Stage stage) {
+        TabPane tabPane = new TabPane ();
+
+        Tab tbAccountView = new Tab ("one");
+        Tab tbTransactionView = new Tab ("two");
+
+        tabPane.getTabs().addAll (tbAccountView, tbTransactionView);
+
+        tbAccountView.getOnSelectionChanged();
+        		try {
+
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("NeuesKontoHinzufuegen.fxml"));
+			Parent root = null;
+			root = loader.<Parent>load();
+			NewAccountController controller = loader.<NewAccountController>getController();
+			Scene scene = new Scene(root);
+			EventObject event = null;
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+
+*/
+    @FXML
+	void TransactionView(ActionEvent event) {
 
 	}
 
+
 	@FXML
-	void TransactionView(ActionEvent event) {
+	void AccountView(ActionEvent event) {
 
 	}
 
@@ -105,17 +181,72 @@ public class AccountViewController {
 	}
 
 	@FXML
-	void refresh(ActionEvent event) {
-
+	public void refresh(ActionEvent event){
+		refreshFnkt();
 	}
+
+	public void refreshFnkt(){
+		accountList = refreshAccount();
+		fillTable();
+	}
+
+
+
+
+    protected void fillTable(){
+		//Account[] accountArray = gson.fromJson(accountJson, Account[].class);
+		//ArrayList accountList = new ArrayList<Account>(Arrays.asList(accountArray));
+		tabAccNumber.setCellValueFactory(new PropertyValueFactory<Account, String>("number"));
+		tabAccOwner.setCellValueFactory(new PropertyValueFactory<Account, String>("owner"));
+		tabAccBalance.setCellValueFactory(new PropertyValueFactory<Account, BigDecimal>("balance"));
+		for (Iterator<Account> i = accountList.iterator(); i.hasNext();) {
+			Account item = i.next();
+			List<Transaction> transactions = item.getTransactions();
+			BigDecimal accountBalance = new BigDecimal(0);
+			for (Transaction transaction : transactions) {
+				if (transaction.getSender().getNumber().equals(item.getNumber())) {
+					accountBalance = accountBalance.subtract(transaction.getAmount());
+				} else {
+					accountBalance = accountBalance.add(transaction.getAmount());
+				}
+				item.setBalance(accountBalance);
+			}
+		}
+		ObservableList<Account> data = FXCollections.observableList(accountList);
+		tabAccount.setItems(data);
+
+		}
+
+
+    protected ArrayList refreshAccount(){
+		try {
+			HttpResponse response = serverAccess.getAllAccountResponse();
+			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+				String accountJson = EntityUtils.toString(response.getEntity());
+				Gson gson = new GsonBuilder().create();
+				Account[] accountArray = gson.fromJson(accountJson, Account[].class);
+				ArrayList accountList = new ArrayList<Account>(Arrays.asList(accountArray));
+				ServerAccess.setAccountList(accountList);
+
+				//errorText.setText("");
+				return accountList;
+			}else{
+				//errorText.setText(EntityUtils.toString(response.getEntity()) + " (Fehler: " + response.getStatusLine().getStatusCode() + ")");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			//errorText.setText("Server nicht verfügbar");
+		}
+		return null;
+    }
 
 	/**
 	 *
 	 * @author Alina Liedtke
 	 */
-	@FXML
-	private void initialize() {
-		try {
+
+
+		/*try {
 
 			HttpResponse response = serverAccess.getAllAccountResponse();
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
@@ -150,7 +281,7 @@ public class AccountViewController {
 			// in das o.g. textfeld server nicht gefunden
 		}
 
-	}
+	}*/
 
 	@FXML
 	void clickItem(MouseEvent mouseEvent) {

@@ -21,15 +21,15 @@ import java.util.List;
 
 		static Account account;
 
-		static ArrayList accountList;
+		static ArrayList<Account> accountList;
 
 		static BigDecimal accountBalance;
 
-		public static ArrayList getAccountList() {
+		public static ArrayList<Account> getAccountList() {
 			return accountList;
 		}
 
-		public static void setAccountList(ArrayList accountListt) {
+		public static void setAccountList(ArrayList<Account> accountListt) {
 			accountList = accountListt;
 
 		}

@@ -48,7 +48,7 @@ import javafx.scene.text.Text;
 public class AccountViewController {
 
 	ServerAccess serverAccess = new ServerAccess();
-	ArrayList accountList;
+	ArrayList<Account> accountList;
 
 	@FXML
 	private TableView<Account> tabAccount;
@@ -82,11 +82,12 @@ public class AccountViewController {
 
     @FXML
 	private void initialize() {
+    	refreshAccount();
 		accountList = ServerAccess.getAccountList();
 		fillTable();
 	}
 
-	/*@FXML
+/*	@FXML
 	void TransactionView(ActionEvent event) {
 			try {
 				Stage stage;
@@ -116,13 +117,13 @@ public class AccountViewController {
 
     	);
 
+*/
 
 
 
 
+    	        
 
-    	        }}*/
-/*
     public void TransactionView (Stage stage) {
         TabPane tabPane = new TabPane ();
 
@@ -149,7 +150,7 @@ public class AccountViewController {
 		}
     }
 
-*/
+
     @FXML
 	void TransactionView(ActionEvent event) {
 
@@ -199,8 +200,8 @@ public class AccountViewController {
 		tabAccNumber.setCellValueFactory(new PropertyValueFactory<Account, String>("number"));
 		tabAccOwner.setCellValueFactory(new PropertyValueFactory<Account, String>("owner"));
 		tabAccBalance.setCellValueFactory(new PropertyValueFactory<Account, BigDecimal>("balance"));
-		for (Iterator<Account> i = accountList.iterator(); i.hasNext();) {
-			Account item = i.next();
+		
+		for (Account item : accountList) {
 			List<Transaction> transactions = item.getTransactions();
 			BigDecimal accountBalance = new BigDecimal(0);
 			for (Transaction transaction : transactions) {
@@ -210,6 +211,7 @@ public class AccountViewController {
 					accountBalance = accountBalance.add(transaction.getAmount());
 				}
 				item.setBalance(accountBalance);
+				
 			}
 		}
 		ObservableList<Account> data = FXCollections.observableList(accountList);
@@ -218,14 +220,14 @@ public class AccountViewController {
 		}
 
 
-    protected ArrayList refreshAccount(){
+    protected ArrayList<Account> refreshAccount(){
 		try {
 			HttpResponse response = serverAccess.getAllAccountResponse();
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				String accountJson = EntityUtils.toString(response.getEntity());
 				Gson gson = new GsonBuilder().create();
 				Account[] accountArray = gson.fromJson(accountJson, Account[].class);
-				ArrayList accountList = new ArrayList<Account>(Arrays.asList(accountArray));
+				ArrayList<Account> accountList = new ArrayList<Account>(Arrays.asList(accountArray));
 				ServerAccess.setAccountList(accountList);
 
 				//errorText.setText("");

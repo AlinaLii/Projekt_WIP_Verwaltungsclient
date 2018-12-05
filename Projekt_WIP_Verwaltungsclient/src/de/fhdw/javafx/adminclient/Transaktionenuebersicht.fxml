@@ -10,23 +10,24 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fhdw.javafx.adminclient.NewAccountController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fhdw.javafx.adminclient.TransactionViewController">
    <children>
       <TabPane prefHeight="63.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="tbAccountView" onSelectionChanged="#tbAccountView" text="Kontenübersicht" />
-          <Tab fx:id="tbTransactionView" onSelectionChanged="#tbTransactionView" text="Transaktionenübersicht" />
+          <Tab fx:id="tbAccountView"  text="Kontenübersicht" />
+          <Tab fx:id="tbTransactionView"  text="Transaktionenübersicht" />
         </tabs>
       </TabPane>
-      <TableView fx:id="tabTransaction" layoutX="134.0" layoutY="156.0" prefHeight="544.0" prefWidth="733.0" style="-fx-background-color: grey;">
+      <TableView fx:id="tabTransaction" layoutX="114.0" layoutY="156.0" prefHeight="544.0" prefWidth="784.0" style="-fx-background-color: grey;">
          <columns>
-            <TableColumn prefWidth="150.0" text="Datum" />
-            <TableColumn minWidth="0.0" prefWidth="144.0" text="Sendernummer" />
-            <TableColumn minWidth="0.0" prefWidth="235.0" text="Empfängernummer" />
-            <TableColumn minWidth="0.0" prefWidth="203.0" text="Betrag" />
+            <TableColumn fx:id="tabDate" prefWidth="128.0" text="Datum" />
+            <TableColumn fx:id="tabSenderNumber" minWidth="0.0" prefWidth="153.0" text="Sendernummer" />
+            <TableColumn fx:id="tabReceiverNumber" minWidth="0.0" prefWidth="162.0" text="Empfängernummer" />
+            <TableColumn fx:id="tabAmount" minWidth="0.0" prefWidth="162.0" text="Betrag in €" />
+            <TableColumn fx:id="tabReference" minWidth="0.0" prefWidth="180.0" text="Referenz" />
          </columns>
       </TableView>
-      <Button fx:id="btnRefresh" layoutX="135.0" layoutY="117.0" mnemonicParsing="false" text="aktualisieren" />
+      <Button fx:id="btnRefresh" layoutX="135.0" layoutY="117.0" mnemonicParsing="false" onAction="#refreshBtnAction" text="aktualisieren" />
       <ImageView fx:id="imgLogo" fitHeight="83.0" fitWidth="72.0" layoutX="897.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
       <Text fx:id="txtHeader" layoutX="25.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transaktionenübersicht">
          <font>

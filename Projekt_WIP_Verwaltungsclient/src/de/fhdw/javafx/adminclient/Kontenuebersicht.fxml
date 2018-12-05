@@ -14,24 +14,25 @@
    <children>
       <TabPane layoutX="1.0" prefHeight="700.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="tbAccountView" onSelectionChanged="#AccountView" text="Kontenübersicht" />
-          <Tab fx:id="tbTransactionView" onSelectionChanged="#TransactionView" text="Transaktionenübersicht" />
+          <Tab fx:id="tbAccountView" text="Kontenübersicht" />
+          <Tab fx:id="tbTransactionView" onSelectionChanged="#tbTransactionView" text="Transaktionenübersicht" />
         </tabs>
       </TabPane>
       <TableView fx:id="tabAccount" layoutX="120.0" layoutY="140.0" onMouseClicked="#clickItem" prefHeight="544.0" prefWidth="733.0" style="-fx-background-color: grey;">
          <columns>
             <TableColumn fx:id="tabAccNumber" prefWidth="242.0" text="Kontonummer" />
             <TableColumn fx:id="tabAccOwner" minWidth="0.0" prefWidth="253.0" text="Kontoinhaber" />
-            <TableColumn fx:id="tabAccBalance" minWidth="0.0" prefWidth="237.0" text="Kontostand" />
+            <TableColumn fx:id="tabAccBalance" minWidth="0.0" prefWidth="237.0" text="Kontostand in €" />
          </columns>
       </TableView>
       <ImageView fx:id="imgLogo" fitHeight="83.0" fitWidth="72.0" layoutX="889.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="btnRefresh" layoutX="121.0" layoutY="108.0" mnemonicParsing="false" onAction="#refresh" text="Aktualisieren" />
+      <Button fx:id="btnRefresh" layoutX="121.0" layoutY="108.0" mnemonicParsing="false" onAction="#refreshBtnAction" text="Aktualisieren" />
       <Button fx:id="btnNewAccount" layoutX="215.0" layoutY="108.0" mnemonicParsing="false" onAction="#newAccountBtnAction" text="Konto hinzufügen" />
       <Text fx:id="txtHeader" layoutX="35.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontenübersicht">
          <font>
             <Font size="29.0" />
          </font>
       </Text>
+      <Button fx:id="btnTransactionView" layoutX="265.0" layoutY="3.0" mnemonicParsing="false" onAction="#transactionViewBtnAction" text="Transaktionenübersicht" />
    </children>
 </AnchorPane>

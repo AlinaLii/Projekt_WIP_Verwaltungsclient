@@ -68,6 +68,15 @@ import java.util.List;
 			return response = client.execute(get);
 
 		}
+		
+		public HttpResponse getAllTransactionsResponse() throws ClientProtocolException, IOException{
+
+			HttpResponse response;
+			HttpClient client = HttpClients.createDefault();
+			HttpGet get = new HttpGet(String.format("http://localhost:9998/rest/allTransactions"));
+			return response = client.execute(get);
+
+		}
 
 		public HttpResponse getFreeAccountNumberResponse() throws ClientProtocolException, IOException{
 

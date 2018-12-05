@@ -56,22 +56,22 @@ public class AccountDetailViewController {
     private ImageView imgLogo;
 
     @FXML
-	private TableView<TableRow> tabTransaction;
+	private TableView<TableRowAccountTransactions> tabTransaction;
 
 	@FXML
-	private TableColumn<TableRow, String> tabDate;
+	private TableColumn<TableRowAccountTransactions, String> tabDate;
 
 	@FXML
-	private TableColumn<TableRow, String> tabSenderReceiver;
+	private TableColumn<TableRowAccountTransactions, String> tabSenderReceiver;
 
 	@FXML
-	private TableColumn<TableRow, String> tabAccNumber;
+	private TableColumn<TableRowAccountTransactions, String> tabAccNumber;
 
 	@FXML
-	private TableColumn<TableRow, BigDecimal> tabAmount;
+	private TableColumn<TableRowAccountTransactions, BigDecimal> tabAmount;
 
 	@FXML
-	private TableColumn<TableRow, String> tabReference;
+	private TableColumn<TableRowAccountTransactions, String> tabReference;
     @FXML
     private TextField txtOwnerTextInput;
 
@@ -138,18 +138,18 @@ public class AccountDetailViewController {
 		//eine globale var in klasse erstellen die current accounthei´t und dann account in die tabelle laden ->nadin
 		this.currentAccount = account;
 		System.out.println(currentAccount.getBalance());
-		tabDate.setCellValueFactory(new PropertyValueFactory<TableRow, String>("transactionDate"));
-		tabSenderReceiver.setCellValueFactory(new PropertyValueFactory<TableRow, String>("senderReceiver"));
-		tabAccNumber.setCellValueFactory(new PropertyValueFactory<TableRow, String>("accountNumber"));
-		tabAmount.setCellValueFactory(new PropertyValueFactory<TableRow, BigDecimal>("amount"));
-		tabReference.setCellValueFactory(new PropertyValueFactory<TableRow, String>("reference"));
+		tabDate.setCellValueFactory(new PropertyValueFactory<TableRowAccountTransactions, String>("transactionDate"));
+		tabSenderReceiver.setCellValueFactory(new PropertyValueFactory<TableRowAccountTransactions, String>("senderReceiver"));
+		tabAccNumber.setCellValueFactory(new PropertyValueFactory<TableRowAccountTransactions, String>("accountNumber"));
+		tabAmount.setCellValueFactory(new PropertyValueFactory<TableRowAccountTransactions, BigDecimal>("amount"));
+		tabReference.setCellValueFactory(new PropertyValueFactory<TableRowAccountTransactions, String>("reference"));
 
 		BigDecimal accountBalance = new BigDecimal(0);
 
-		List<TableRow> tableRows = new ArrayList<TableRow>();
+		List<TableRowAccountTransactions> tableRows = new ArrayList<TableRowAccountTransactions>();
 		List<Transaction> transactions = currentAccount.getTransactions();
 		for (Transaction transaction : transactions) {
-			TableRow tableRow = new TableRow();
+			TableRowAccountTransactions tableRow = new TableRowAccountTransactions();
 			tableRow.setTransactionDate(new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(transaction.getTransactionDate()));
 			if (transaction.getSender().getNumber().equals(currentAccount.getNumber())) {
 				tableRow.setSenderReceiver(transaction.getReceiver().getOwner());
@@ -174,7 +174,7 @@ public class AccountDetailViewController {
 			//ToDo: Spalte "Datum" breiter machen
 		}
 
-		ObservableList<TableRow> data = FXCollections.observableList(tableRows);
+		ObservableList<TableRowAccountTransactions> data = FXCollections.observableList(tableRows);
 		tabTransaction.setItems(data);
 
 

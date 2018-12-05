@@ -2,10 +2,10 @@ package de.fhdw.javafx.adminclient;
 
 import java.math.BigDecimal;
 
-public class TableRow {
+public class TableRowAllTransactions {
 	private String transactionDate;
-	private String senderReceiver;
-	private String  accountNumber;
+	private String senderNumber;
+	private String receiverNumber;
 	private BigDecimal amount;
 	private String reference;
 
@@ -15,17 +15,17 @@ public class TableRow {
 	public void setTransactionDate(String transactionDate) {
 		this.transactionDate = transactionDate;
 	}
-	public String getSenderReceiver() {
-		return senderReceiver;
+	public String getSenderNumber() {
+		return senderNumber;
 	}
-	public void setSenderReceiver(String senderReceiver) {
-		this.senderReceiver = senderReceiver;
+	public void setSenderNumber(String senderNumber) {
+		this.senderNumber = senderNumber;
 	}
-	public String getAccountNumber() {
-		return accountNumber;
+	public String getReceiverNumber() {
+		return receiverNumber;
 	}
-	public void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
+	public void setReceiverNumber(String receiverNumber) {
+		this.receiverNumber = receiverNumber;
 	}
 	public BigDecimal getAmount() {
 		return amount;

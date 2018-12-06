@@ -29,8 +29,8 @@ import java.util.List;
 			return accountList;
 		}
 
-		public static void setAccountList(ArrayList<Account> accountListt) {
-			accountList = accountListt;
+		public static void setAccountList(ArrayList<Account> currentAccountList) {
+			accountList = currentAccountList;
 
 		}
 
@@ -68,7 +68,7 @@ import java.util.List;
 			return response = client.execute(get);
 
 		}
-		
+
 		public HttpResponse getAllTransactionsResponse() throws ClientProtocolException, IOException{
 
 			HttpResponse response;

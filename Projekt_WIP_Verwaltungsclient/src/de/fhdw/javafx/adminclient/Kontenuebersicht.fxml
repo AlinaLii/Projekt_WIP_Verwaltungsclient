@@ -15,7 +15,7 @@
       <TabPane layoutX="1.0" prefHeight="700.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="tbAccountView" text="Kontenübersicht" />
-          <Tab fx:id="tbTransactionView" onSelectionChanged="#tbTransactionView" text="Transaktionenübersicht" />
+          <Tab fx:id="tbTransactionView"  text="Transaktionenübersicht" />
         </tabs>
       </TabPane>
       <TableView fx:id="tabAccount" layoutX="120.0" layoutY="140.0" onMouseClicked="#clickItem" prefHeight="544.0" prefWidth="733.0" style="-fx-background-color: grey;">

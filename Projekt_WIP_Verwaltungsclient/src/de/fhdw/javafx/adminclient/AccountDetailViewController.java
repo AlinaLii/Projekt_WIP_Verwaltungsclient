@@ -42,20 +42,19 @@ public class AccountDetailViewController {
 	ServerAccess serverAccess = new ServerAccess();
 	Account currentAccount;
 
+	@FXML
+	private Tab panelAccountOverview;
 
-    @FXML
-    private Tab panelAccountOverview;
+	@FXML
+	private Tab panelTransactionOverview;
 
-    @FXML
-    private Tab panelTransactionOverview;
+	@FXML
+	private Text txtHeader;
 
-    @FXML
-    private Text txtHeader;
+	@FXML
+	private ImageView imgLogo;
 
-    @FXML
-    private ImageView imgLogo;
-
-    @FXML
+	@FXML
 	private TableView<TableRowAccountTransactions> tabTransaction;
 
 	@FXML
@@ -72,18 +71,15 @@ public class AccountDetailViewController {
 
 	@FXML
 	private TableColumn<TableRowAccountTransactions, String> tabReference;
-    @FXML
-    private TextField txtOwnerTextInput;
+	@FXML
+	private TextField txtOwnerTextInput;
 
-    @FXML
-    private Text txtAccBalance;
+	@FXML
+	private Text txtAccBalance;
 
-
-
-
-    @FXML
-    void backBtnAction(ActionEvent event) {
-    	try {
+	@FXML
+	void backBtnAction(ActionEvent event) {
+		try {
 			Stage stage;
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Kontenuebersicht.fxml"));
 			Parent root = null;
@@ -97,50 +93,44 @@ public class AccountDetailViewController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
+	}
 
-    @FXML
-    void saveBtnAction(ActionEvent event) {
-    	try {
+	@FXML
+	void saveBtnAction(ActionEvent event) {
+		try {
 
-    		   HttpResponse httpResponse = serverAccess.updateOwner(currentAccount.getNumber(), txtOwnerTextInput.getText());
+			HttpResponse httpResponse = serverAccess.updateOwner(currentAccount.getNumber(),
+					txtOwnerTextInput.getText());
 
-    		   int statusCode = httpResponse.getStatusLine().getStatusCode();
-    		   String entityMsg = "";
-    		   if (statusCode != HttpStatus.SC_NO_CONTENT) {
-    		    entityMsg = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
-    		    String errorMsg = " (Fehler " + httpResponse.getStatusLine().getStatusCode() + ")";
-    		    //errorText.setText(entityMsg + errorMsg);
-    		   }
+			int statusCode = httpResponse.getStatusLine().getStatusCode();
+			String entityMsg = "";
+			if (statusCode != HttpStatus.SC_NO_CONTENT) {
+				entityMsg = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
+				String errorMsg = " (Fehler " + httpResponse.getStatusLine().getStatusCode() + ")";
+				// errorText.setText(entityMsg + errorMsg);
+			}
 
-
-    		  } catch (IOException e) {
-    		   //errorText.setText("Server nicht verfügbar. Versuchen Sie es später noch mal.");
-    		  }
-    }
-
-
-
-
+		} catch (IOException e) {
+			// errorText.setText("Server nicht verfügbar. Versuchen Sie es
+			// später noch mal.");
+		}
+	}
 
 	@FXML
 	private void initialize() {
 
-
-
-
-
-
-
 	}
 
- void initData(Account account) {
-		//eine globale var in klasse erstellen die current accounthei´t und dann account in die tabelle laden ->nadin
+	void initData(Account account) {
+		// eine globale var in klasse erstellen die current accounthei´t und
+		// dann account in die tabelle laden ->nadin
 		this.currentAccount = account;
 		System.out.println(currentAccount.getBalance());
 		tabDate.setCellValueFactory(new PropertyValueFactory<TableRowAccountTransactions, String>("transactionDate"));
-		tabSenderReceiver.setCellValueFactory(new PropertyValueFactory<TableRowAccountTransactions, String>("senderReceiver"));
-		tabAccNumber.setCellValueFactory(new PropertyValueFactory<TableRowAccountTransactions, String>("accountNumber"));
+		tabSenderReceiver
+				.setCellValueFactory(new PropertyValueFactory<TableRowAccountTransactions, String>("senderReceiver"));
+		tabAccNumber
+				.setCellValueFactory(new PropertyValueFactory<TableRowAccountTransactions, String>("accountNumber"));
 		tabAmount.setCellValueFactory(new PropertyValueFactory<TableRowAccountTransactions, BigDecimal>("amount"));
 		tabReference.setCellValueFactory(new PropertyValueFactory<TableRowAccountTransactions, String>("reference"));
 
@@ -150,20 +140,23 @@ public class AccountDetailViewController {
 		List<Transaction> transactions = currentAccount.getTransactions();
 		for (Transaction transaction : transactions) {
 			TableRowAccountTransactions tableRow = new TableRowAccountTransactions();
-			tableRow.setTransactionDate(new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(transaction.getTransactionDate()));
+			tableRow.setTransactionDate(
+					new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(transaction.getTransactionDate()));
 			if (transaction.getSender().getNumber().equals(currentAccount.getNumber())) {
 				tableRow.setSenderReceiver(transaction.getReceiver().getOwner());
 				tableRow.setAccountNumber(transaction.getReceiver().getNumber());
 				accountBalance = accountBalance.subtract(transaction.getAmount());
+				BigDecimal negative = new BigDecimal(-1);
+				tableRow.setAmount(transaction.getAmount().multiply(negative));
 			} else {
 				tableRow.setSenderReceiver(transaction.getSender().getOwner());
 				tableRow.setAccountNumber(transaction.getSender().getNumber());
 				accountBalance = accountBalance.add(transaction.getAmount());
+				tableRow.setAmount(transaction.getAmount());
 			}
-			tableRow.setAmount(transaction.getAmount());
+
 			tableRow.setReferenceString(transaction.getReference());
 			tableRows.add(tableRow);
-
 
 			String accountBalanceAsString = accountBalance.toString();
 			txtAccBalance.setText(accountBalanceAsString + " €");
@@ -171,12 +164,11 @@ public class AccountDetailViewController {
 			txtOwnerTextInput.setText(currentAccount.getOwner());
 			serverAccess.setAccountBalance(accountBalance);
 
-			//ToDo: Spalte "Datum" breiter machen
+			// ToDo: Spalte "Datum" breiter machen
 		}
 
 		ObservableList<TableRowAccountTransactions> data = FXCollections.observableList(tableRows);
 		tabTransaction.setItems(data);
 
-
-}
+	}
 }

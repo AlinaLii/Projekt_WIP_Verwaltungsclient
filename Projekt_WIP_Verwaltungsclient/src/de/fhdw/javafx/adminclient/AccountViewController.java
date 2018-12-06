@@ -200,10 +200,10 @@ public class AccountViewController {
 				ArrayList<Account> accountList = new ArrayList<Account>(Arrays.asList(accountArray));
 				ServerAccess.setAccountList(accountList);
 
-				// errorText.setText("");
+				// txtError.setText("");
 				return accountList;
 			} else {
-				// errorText.setText(EntityUtils.toString(response.getEntity())
+				// txtError.setText(EntityUtils.toString(response.getEntity())
 				// + " (Fehler: " + response.getStatusLine().getStatusCode() +
 				// ")");
 			}

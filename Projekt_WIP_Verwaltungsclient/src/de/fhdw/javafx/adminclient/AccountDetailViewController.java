@@ -107,7 +107,7 @@ public class AccountDetailViewController {
 
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
 			String entityMsg = "";
-			if (statusCode == HttpStatus.SC_NO_CONTENT) {
+			if (statusCode != HttpStatus.SC_NO_CONTENT) {
 				entityMsg = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
 				String errorMsg = " (Fehler " + httpResponse.getStatusLine().getStatusCode() + ")";
 				txtError.setText(entityMsg + errorMsg);

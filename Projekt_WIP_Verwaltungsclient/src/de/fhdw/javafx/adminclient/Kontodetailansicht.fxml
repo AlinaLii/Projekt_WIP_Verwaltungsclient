@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fhdw.javafx.adminclient.AccountDetailViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="de.fhdw.javafx.adminclient.AccountDetailViewController">
    <children>
       <TabPane prefHeight="63.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -40,9 +40,10 @@
             <TableColumn fx:id="tabReference" minWidth="0.0" prefWidth="148.0" text="Verwendungszweck" />
         </columns>
       </TableView>
-      <Button fx:id="txtSave" layoutX="435.0" layoutY="178.0" mnemonicParsing="false" onAction="#saveBtnAction" text="Speichern" />
+      <Button fx:id="txtSave" layoutX="388.0" layoutY="182.0" mnemonicParsing="false" onAction="#saveBtnAction" text="Speichern" />
       <TextField fx:id="txtOwnerTextInput" layoutX="218.0" layoutY="182.0" />
       <Text fx:id="txtAccBalance" layoutX="218.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
       <Button fx:id="btnBack" layoutX="15.0" layoutY="43.0" mnemonicParsing="false" onAction="#backBtnAction" text="zurück" />
+      <Text fx:id="txtError" fill="RED" layoutX="465.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </AnchorPane>

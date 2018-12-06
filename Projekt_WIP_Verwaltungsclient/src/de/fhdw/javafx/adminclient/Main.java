@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 
 
 public class Main extends Application {
+	protected static Stage primaryStage;
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {

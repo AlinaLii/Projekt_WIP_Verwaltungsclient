@@ -54,6 +54,9 @@ public class AccountDetailViewController {
 	@FXML
 	private ImageView imgLogo;
 
+    @FXML
+    private Text txtError;
+
 	@FXML
 	private TableView<TableRowAccountTransactions> tabTransaction;
 
@@ -104,15 +107,14 @@ public class AccountDetailViewController {
 
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
 			String entityMsg = "";
-			if (statusCode != HttpStatus.SC_NO_CONTENT) {
+			if (statusCode == HttpStatus.SC_NO_CONTENT) {
 				entityMsg = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
 				String errorMsg = " (Fehler " + httpResponse.getStatusLine().getStatusCode() + ")";
-				// errorText.setText(entityMsg + errorMsg);
+				txtError.setText(entityMsg + errorMsg);
 			}
 
 		} catch (IOException e) {
-			// errorText.setText("Server nicht verfügbar. Versuchen Sie es
-			// später noch mal.");
+			txtError.setText("Dieses Feld darf nicht leer sein.");
 		}
 	}
 

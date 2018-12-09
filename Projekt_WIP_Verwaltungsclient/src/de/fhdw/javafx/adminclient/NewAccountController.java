@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -37,6 +38,10 @@ public class NewAccountController {
 	private TextField txtStartBalance;
 	@FXML
 	private Text txtAccountNumber;
+
+
+    @FXML
+    private ImageView imgLogo;
 
 	@FXML
 	private Button btnSave;
@@ -85,7 +90,7 @@ public class NewAccountController {
 			}
 
 			Stage stage;
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("Kontenuebersicht.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountView.fxml"));
 			Parent root = null;
 			root = loader.<Parent>load();
 			AccountViewController controller = loader.<AccountViewController>getController();
@@ -118,7 +123,7 @@ public class NewAccountController {
 					txtError.setText(errorMsg);
 				} else {
 					Stage stage;
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("Kontenuebersicht.fxml"));
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountView.fxml"));
 					Parent root = null;
 					root = loader.<Parent>load();
 					AccountViewController controller = loader.<AccountViewController>getController();

@@ -37,12 +37,6 @@ public class TransactionViewController {
 	ArrayList<Transaction> transactionList;
 
 	@FXML
-	private Tab tbAccountView;
-
-	@FXML
-	private Tab tbTransactionView;
-
-	@FXML
 	private TableView<TableRowAllTransactions> tabTransaction;
 
 	@FXML
@@ -69,11 +63,14 @@ public class TransactionViewController {
 	@FXML
 	private Text txtHeader;
 
-	@FXML
-	void tbAccountView(ActionEvent event) {
+    @FXML
+    private Button btnAccountView;
+
+    @FXML
+    void AccountViewBtnAction(ActionEvent event) {
 		try {
 			Stage stage;
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("Kontenuebersicht.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountView.fxml"));
 			Parent root = null;
 			root = loader.<Parent>load();
 			AccountViewController controller = loader.<AccountViewController>getController();
@@ -85,12 +82,8 @@ public class TransactionViewController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+    }
 
-	@FXML
-	void tbTransactionView(ActionEvent event) {
-
-	}
 
 	@FXML
 	private void initialize() {

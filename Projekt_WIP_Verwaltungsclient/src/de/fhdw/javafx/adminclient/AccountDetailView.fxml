@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="de.fhdw.javafx.adminclient.AccountDetailViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fhdw.javafx.adminclient.AccountDetailViewController">
    <children>
-      <TabPane prefHeight="63.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab fx:id="panelAccountOverview" text="Kontenübersicht" />
-        </tabs>
-      </TabPane>
       <Text layoutX="42.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontoinhaber:">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -26,7 +20,7 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Text>
-      <Text fx:id="txtHeader" layoutX="42.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detailansicht Konto">
+      <Text fx:id="txtHeader" layoutX="42.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detailansicht Konto">
          <font>
             <Font size="29.0" />
          </font></Text>
@@ -40,10 +34,15 @@
             <TableColumn fx:id="tabReference" minWidth="0.0" prefWidth="148.0" text="Verwendungszweck" />
         </columns>
       </TableView>
-      <Button fx:id="txtSave" layoutX="388.0" layoutY="182.0" mnemonicParsing="false" onAction="#saveBtnAction" text="Speichern" />
+      <Button fx:id="btnSave" layoutX="388.0" layoutY="182.0" mnemonicParsing="false" onAction="#saveBtnAction" text="Speichern" />
       <TextField fx:id="txtOwnerTextInput" layoutX="218.0" layoutY="182.0" />
       <Text fx:id="txtAccBalance" layoutX="218.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <Button fx:id="btnBack" layoutX="15.0" layoutY="43.0" mnemonicParsing="false" onAction="#backBtnAction" text="zurück" />
+      <Button fx:id="btnBack" layoutX="15.0" layoutY="12.0" mnemonicParsing="false" onAction="#backBtnAction" text="zurück" />
       <Text fx:id="txtError" fill="RED" layoutX="465.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <ImageView fx:id="imgLogo" fitHeight="115.0" fitWidth="131.0" layoutX="864.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@.\\images\\DeutscheBertelsbank.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

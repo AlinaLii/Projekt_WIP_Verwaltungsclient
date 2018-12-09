@@ -55,6 +55,12 @@ public class AccountDetailViewController {
 	private ImageView imgLogo;
 
     @FXML
+    private Button btnBack;
+
+    @FXML
+    private Button btnSave;
+
+    @FXML
     private Text txtError;
 
 	@FXML
@@ -84,7 +90,7 @@ public class AccountDetailViewController {
 	void backBtnAction(ActionEvent event) {
 		try {
 			Stage stage;
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("Kontenuebersicht.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountView.fxml"));
 			Parent root = null;
 			root = loader.<Parent>load();
 			AccountViewController controller = loader.<AccountViewController>getController();
@@ -107,10 +113,12 @@ public class AccountDetailViewController {
 
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
 			String entityMsg = "";
-			if (statusCode != HttpStatus.SC_NO_CONTENT) {
+			if (statusCode != HttpStatus.SC_OK) {
 				entityMsg = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
 				String errorMsg = " (Fehler " + httpResponse.getStatusLine().getStatusCode() + ")";
 				txtError.setText(entityMsg + errorMsg);
+			} else {
+				txtError.setText("Das Konto wurde erfolgreich umbenannt.");
 			}
 
 		} catch (IOException e) {

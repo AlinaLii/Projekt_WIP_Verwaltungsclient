@@ -27,6 +27,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -51,13 +52,8 @@ public class AccountViewController {
 	@FXML
 	private TableColumn<Account, BigDecimal> tabAccBalance;
 
-
-
 	@FXML
-	private Tab tbAccountView;
-
-	@FXML
-	private Tab tbTransactionView;
+	private TextField txtInputIPAddress;
 
 	@FXML
 	private ImageView imgLogo;
@@ -71,56 +67,32 @@ public class AccountViewController {
 	@FXML
 	private Text txtHeader;
 
-    @FXML
-    private Button btnTransactionView;
-
-    @FXML
-	private TabPane tabPane;
-
+	@FXML
+	private Button btnTransactionView;
 
 	@FXML
-	void refreshBtnAction(ActionEvent event) {
-			refreshFnkt();
-		}
+	private Text txtError;
 
 	@FXML
 	private void initialize() {
+		txtInputIPAddress.setText(ServerAccess.getIpAddress());
 		refreshAccount();
 		accountList = ServerAccess.getAccountList();
 		fillTable();
-
-/*
-		tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
-			@Override
-			public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-				if("tbTransactionView".equals(t1.getId())){
-					try {
-						System.out.println("+++++++++++++++++++++++++");
-						Stage stage;
-						FXMLLoader loader = new FXMLLoader(getClass().getResource("Transaktionenuebersicht.fxml"));
-						Parent root = loader.<Parent>load();
-						TransactionViewController controller = (TransactionViewController) loader.<TransactionViewController>getController();
-						//controller.setStageAndSetupListeners(stage);
-						Scene scene = new Scene(root);
-						stage = Main.primaryStage;
-						stage.setScene(scene);
-						stage.show();
-
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-		}); */
-
 	}
 
-    @FXML
-    void transactionViewBtnAction(ActionEvent event) {
+	@FXML
+	void refreshBtnAction(ActionEvent event) {
+		ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
+		refreshFnkt();
+	}
+
+	@FXML
+	void transactionViewBtnAction(ActionEvent event) {
+		ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
 		try {
 			Stage stage;
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("Transaktionenuebersicht.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("TransactionView.fxml"));
 			Parent root = null;
 			root = loader.<Parent>load();
 			TransactionViewController controller = loader.<TransactionViewController>getController();
@@ -132,20 +104,14 @@ public class AccountViewController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
-
-	@FXML
-	void tbAccountView(ActionEvent event) {
-
 	}
-
-
 
 	@FXML
 	void newAccountBtnAction(ActionEvent event) {
+		ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
 		try {
 			Stage stage;
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("NeuesKontoHinzufuegen.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("NewAccount.fxml"));
 			Parent root = null;
 			root = loader.<Parent>load();
 			NewAccountController controller = loader.<NewAccountController>getController();
@@ -159,8 +125,6 @@ public class AccountViewController {
 		}
 
 	}
-
-
 
 	public void refreshFnkt() {
 		accountList = refreshAccount();
@@ -199,28 +163,28 @@ public class AccountViewController {
 				Account[] accountArray = gson.fromJson(accountJson, Account[].class);
 				ArrayList<Account> accountList = new ArrayList<Account>(Arrays.asList(accountArray));
 				ServerAccess.setAccountList(accountList);
-
-				// txtError.setText("");
+				txtError.setText("");
 				return accountList;
 			} else {
-				// txtError.setText(EntityUtils.toString(response.getEntity())
-				// + " (Fehler: " + response.getStatusLine().getStatusCode() +
-				// ")");
+				txtError.setText(EntityUtils.toString(response.getEntity())
+				+ " (Fehler: " + response.getStatusLine().getStatusCode() +
+				")");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			// errorText.setText("Server nicht verfügbar");
+			txtError.setText("Server nicht verfügbar");
 		}
 		return null;
 	}
 
 	@FXML
 	void clickItem(MouseEvent mouseEvent) {
+		ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
 		if (mouseEvent.getClickCount() == 2) // Checking double click
 		{
 			try {
 				Stage stage;
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("Kontodetailansicht.fxml"));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountDetailView.fxml"));
 				Parent root = null;
 				root = loader.<Parent>load();
 				AccountDetailViewController controller = loader.<AccountDetailViewController>getController();

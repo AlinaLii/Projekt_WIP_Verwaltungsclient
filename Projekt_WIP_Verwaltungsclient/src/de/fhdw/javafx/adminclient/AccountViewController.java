@@ -4,6 +4,8 @@ import java.io.IOException;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.Tab;
 import java.math.BigDecimal;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -75,7 +77,17 @@ public class AccountViewController {
 
 	@FXML
 	private void initialize() {
-		txtInputIPAddress.setText(ServerAccess.getIpAddress());
+
+		try {
+
+			ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
+
+		}	catch(Exception e){
+
+			e.printStackTrace();
+
+			txtError.setText("Server nicht verfügbar");
+		}
 		refreshAccount();
 		accountList = ServerAccess.getAccountList();
 		fillTable();
@@ -83,13 +95,33 @@ public class AccountViewController {
 
 	@FXML
 	void refreshBtnAction(ActionEvent event) {
-		ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
+		try {
+
+			if (ServerAccess.setIpAddress(txtInputIPAddress.getText().toString())) {
+				txtError.setText("Server nicht verfügbar");
+			}
+
+		}	catch(IOException e){
+
+			e.printStackTrace();
+
+			txtError.setText("Server nicht verfügbar");
+		}
 		refreshFnkt();
 	}
 
 	@FXML
 	void transactionViewBtnAction(ActionEvent event) {
-		ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
+		try {
+
+			ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
+
+		}	catch(Exception e){
+
+			e.printStackTrace();
+
+			txtError.setText("Server nicht verfügbar");
+		}
 		try {
 			Stage stage;
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("TransactionView.fxml"));
@@ -108,7 +140,16 @@ public class AccountViewController {
 
 	@FXML
 	void newAccountBtnAction(ActionEvent event) {
-		ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
+		try {
+
+			ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
+
+		}	catch(Exception e){
+
+			e.printStackTrace();
+
+			txtError.setText("Server nicht verfügbar");
+		}
 		try {
 			Stage stage;
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("NewAccount.fxml"));
@@ -179,7 +220,16 @@ public class AccountViewController {
 
 	@FXML
 	void clickItem(MouseEvent mouseEvent) {
-		ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
+		try {
+
+			ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
+
+		}	catch(Exception e){
+
+			e.printStackTrace();
+
+			txtError.setText("Server nicht verfügbar");
+		}
 		if (mouseEvent.getClickCount() == 2) // Checking double click
 		{
 			try {

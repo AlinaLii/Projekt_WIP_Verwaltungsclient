@@ -2,6 +2,8 @@ package de.fhdw.javafx.adminclient;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -25,7 +27,7 @@ public class ServerAccess {
 
 	static BigDecimal accountBalance;
 
-	private static String ipAddress = "127.0.0.1";
+	private static String ipAddress = "127.0.0.1:9998";
 
 	public static ArrayList<Account> getAccountList() {
 		return accountList;
@@ -40,8 +42,18 @@ public class ServerAccess {
 		return ipAddress;
 	}
 
-	public static void setIpAddress(String ipAddress) {
-		ServerAccess.ipAddress = ipAddress;
+	public static boolean setIpAddress(String ipAddress) throws IOException {
+		int timeout = 3000;
+
+			if (InetAddress.getByName(ipAddress).isReachable(timeout)){
+				ServerAccess.ipAddress = ipAddress;
+				System.out.println("nasknsakanskanskans");
+				return true;
+			} else {
+				System.out.println("nasknsdddddddddddddddddddddddddddddddddddddsakanskanskans");
+				return false;
+			}
+
 	}
 
 	public static BigDecimal getAccountBalance() {
@@ -64,7 +76,7 @@ public class ServerAccess {
 
 		HttpResponse response;
 		HttpClient client = HttpClients.createDefault();
-		HttpGet get = new HttpGet(String.format("http://%s:9998/rest/account/%s", ipAddress, accountNumber));
+		HttpGet get = new HttpGet(String.format("http://%s/rest/account/%s", ipAddress, accountNumber));
 		return response = client.execute(get);
 
 	}
@@ -73,7 +85,8 @@ public class ServerAccess {
 
 		HttpResponse response;
 		HttpClient client = HttpClients.createDefault();
-		HttpGet get = new HttpGet(String.format("http://%s:9998/rest/allAccounts", ipAddress));
+		System.out.println(String.format("http://%s/rest/allAccounts", ipAddress));
+		HttpGet get = new HttpGet(String.format("http://%s/rest/allAccounts", ipAddress));
 		return response = client.execute(get);
 
 	}
@@ -82,8 +95,8 @@ public class ServerAccess {
 
 		HttpResponse response;
 		HttpClient client = HttpClients.createDefault();
-		System.out.println(String.format("http://%s:9998/rest/allTransactions", ipAddress));
-		HttpGet get = new HttpGet(String.format("http://%s:9998/rest/allTransactions", ipAddress));
+		System.out.println(String.format("http://%s/rest/allTransactions", ipAddress));
+		HttpGet get = new HttpGet(String.format("http://%s/rest/allTransactions", ipAddress));
 		return response = client.execute(get);
 
 	}
@@ -92,7 +105,7 @@ public class ServerAccess {
 
 		HttpResponse response;
 		HttpClient client = HttpClients.createDefault();
-		HttpGet get = new HttpGet(String.format("http://%s:9998/rest/freeNumber", ipAddress));
+		HttpGet get = new HttpGet(String.format("http://%s/rest/freeNumber", ipAddress));
 		return response = client.execute(get);
 
 	}
@@ -101,7 +114,7 @@ public class ServerAccess {
 			throws ClientProtocolException, IOException {
 
 		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(String.format("http://%s:9998/rest/transaction", ipAddress));
+		HttpPost post = new HttpPost(String.format("http://%s/rest/transaction", ipAddress));
 		List<NameValuePair> parameterList = new ArrayList<>();
 		parameterList.add(new BasicNameValuePair("senderNumber", senderNumber));
 		parameterList.add(new BasicNameValuePair("receiverNumber", receiverNumber));
@@ -117,7 +130,7 @@ public class ServerAccess {
 	public HttpResponse cancelReservation(String number) throws ClientProtocolException, IOException {
 
 		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(String.format("http://%s:9998/rest/recallNumberReservation", ipAddress));
+		HttpPost post = new HttpPost(String.format("http://%s/rest/recallNumberReservation", ipAddress));
 		List<NameValuePair> parameterList = new ArrayList<>();
 		parameterList.add(new BasicNameValuePair("number", number));
 		UrlEncodedFormEntity form = new UrlEncodedFormEntity(parameterList, "UTF-8");
@@ -130,7 +143,7 @@ public class ServerAccess {
 	public HttpResponse addAccount(String owner, String startBalance) throws ClientProtocolException, IOException {
 
 		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(String.format("http://%s:9998/rest/addAccount", ipAddress));
+		HttpPost post = new HttpPost(String.format("http://%s/rest/addAccount", ipAddress));
 		List<NameValuePair> parameterList = new ArrayList<>();
 		parameterList.add(new BasicNameValuePair("owner", owner));
 		parameterList.add(new BasicNameValuePair("startBalance", startBalance));
@@ -146,7 +159,7 @@ public class ServerAccess {
 	public HttpResponse updateOwner(String number, String owner) throws ClientProtocolException, IOException {
 
 		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(String.format("http://%s:9998/rest/updateOwner", ipAddress));
+		HttpPost post = new HttpPost(String.format("http://%s/rest/updateOwner", ipAddress));
 		List<NameValuePair> parameterList = new ArrayList<>();
 		parameterList.add(new BasicNameValuePair("number", number));
 		parameterList.add(new BasicNameValuePair("owner", owner));

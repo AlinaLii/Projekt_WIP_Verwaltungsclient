@@ -25,7 +25,7 @@ public class ServerAccess {
 	static Account account;
 	static ArrayList<Account> accountList;
 	static BigDecimal accountBalance;
-	private static String ipAddress = "127.0.0.1";
+	private static String ipAddress = "127.0.0.1:9998";
 	private int timeout = 2000;
 
 	public static ArrayList<Account> getAccountList() {
@@ -34,7 +34,6 @@ public class ServerAccess {
 
 	public static void setAccountList(ArrayList<Account> currentAccountList) {
 		accountList = currentAccountList;
-
 	}
 
 	public static String getIpAddress() {
@@ -67,7 +66,7 @@ public class ServerAccess {
 		final HttpParams httpParams = new BasicHttpParams();
 	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
 	    DefaultHttpClient client = new DefaultHttpClient(httpParams);
-		HttpGet get = new HttpGet(String.format("http://%s:9998/rest/account/%s", ipAddress, accountNumber));
+		HttpGet get = new HttpGet(String.format("http://%s/rest/account/%s", ipAddress, accountNumber));
 		return response = client.execute(get);
 
 	}
@@ -77,7 +76,7 @@ public class ServerAccess {
 		final HttpParams httpParams = new BasicHttpParams();
 	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
 	    DefaultHttpClient client = new DefaultHttpClient(httpParams);
-		HttpGet get = new HttpGet(String.format("http://%s:9998/rest/allAccounts", ipAddress));
+		HttpGet get = new HttpGet(String.format("http://%s/rest/allAccounts", ipAddress));
 		return response = client.execute(get);
 	}
 
@@ -87,7 +86,7 @@ public class ServerAccess {
 		final HttpParams httpParams = new BasicHttpParams();
 	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
 	    DefaultHttpClient client = new DefaultHttpClient(httpParams);
-		HttpGet get = new HttpGet(String.format("http://%s:9998/rest/allTransactions", ipAddress));
+		HttpGet get = new HttpGet(String.format("http://%s/rest/allTransactions", ipAddress));
 		return response = client.execute(get);
 
 	}
@@ -98,7 +97,7 @@ public class ServerAccess {
 		final HttpParams httpParams = new BasicHttpParams();
 	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
 	    DefaultHttpClient client = new DefaultHttpClient(httpParams);
-		HttpGet get = new HttpGet(String.format("http://%s:9998/rest/freeNumber", ipAddress));
+		HttpGet get = new HttpGet(String.format("http://%s/rest/freeNumber", ipAddress));
 		return response = client.execute(get);
 
 	}
@@ -109,7 +108,7 @@ public class ServerAccess {
 		final HttpParams httpParams = new BasicHttpParams();
 	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
 	    DefaultHttpClient client = new DefaultHttpClient(httpParams);
-		HttpPost post = new HttpPost(String.format("http://%s:9998/rest/transaction", ipAddress));
+		HttpPost post = new HttpPost(String.format("http://%s/rest/transaction", ipAddress));
 		List<NameValuePair> parameterList = new ArrayList<>();
 		parameterList.add(new BasicNameValuePair("senderNumber", senderNumber));
 		parameterList.add(new BasicNameValuePair("receiverNumber", receiverNumber));
@@ -127,7 +126,7 @@ public class ServerAccess {
 		final HttpParams httpParams = new BasicHttpParams();
 	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
 	    DefaultHttpClient client = new DefaultHttpClient(httpParams);
-		HttpPost post = new HttpPost(String.format("http://%s:9998/rest/recallNumberReservation", ipAddress));
+		HttpPost post = new HttpPost(String.format("http://%s/rest/recallNumberReservation", ipAddress));
 		List<NameValuePair> parameterList = new ArrayList<>();
 		parameterList.add(new BasicNameValuePair("number", number));
 		UrlEncodedFormEntity form = new UrlEncodedFormEntity(parameterList, "UTF-8");
@@ -142,7 +141,7 @@ public class ServerAccess {
 		final HttpParams httpParams = new BasicHttpParams();
 	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
 	    DefaultHttpClient client = new DefaultHttpClient(httpParams);
-		HttpPost post = new HttpPost(String.format("http://%s:9998/rest/addAccount", ipAddress));
+		HttpPost post = new HttpPost(String.format("http://%s/rest/addAccount", ipAddress));
 		List<NameValuePair> parameterList = new ArrayList<>();
 		parameterList.add(new BasicNameValuePair("owner", owner));
 		parameterList.add(new BasicNameValuePair("startBalance", startBalance));
@@ -160,7 +159,7 @@ public class ServerAccess {
 		final HttpParams httpParams = new BasicHttpParams();
 	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
 	    DefaultHttpClient client = new DefaultHttpClient(httpParams);
-		HttpPost post = new HttpPost(String.format("http://%s:9998/rest/updateOwner", ipAddress));
+		HttpPost post = new HttpPost(String.format("http://%s/rest/updateOwner", ipAddress));
 		List<NameValuePair> parameterList = new ArrayList<>();
 		parameterList.add(new BasicNameValuePair("number", number));
 		parameterList.add(new BasicNameValuePair("owner", owner));

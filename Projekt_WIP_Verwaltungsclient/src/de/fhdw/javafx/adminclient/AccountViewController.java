@@ -80,7 +80,7 @@ public class AccountViewController {
 		accountList = ServerAccess.getAccountList();
 		fillTable();
 	}
-
+//aktualisieren button
 	@FXML
 	void refreshBtnAction(ActionEvent event) {
 		ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());

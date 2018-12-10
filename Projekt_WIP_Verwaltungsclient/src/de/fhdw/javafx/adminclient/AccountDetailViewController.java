@@ -94,9 +94,7 @@ public class AccountDetailViewController {
 
 	@FXML
 	void refreshBtnAction(ActionEvent event) {
-
 		initData(refreshAccount());
-
 	}
 
 	protected Account refreshAccount() {
@@ -106,7 +104,6 @@ public class AccountDetailViewController {
 				String accountNumber = EntityUtils.toString(response.getEntity());
 				Gson gson = new GsonBuilder().create();
 				Account account = gson.fromJson(accountNumber, Account.class);
-				;
 				ServerAccess.setAccount(account);
 				txtError1.setText("");
 				return account;
@@ -163,13 +160,12 @@ public class AccountDetailViewController {
 
 	@FXML
 	private void initialize() {
-
 	}
 
 	void initData(Account account) {
 
-		this.currentAccount = account;
-		System.out.println(currentAccount.getBalance());
+		currentAccount = account;
+		currentAccount = refreshAccount();
 		tabDate.setCellValueFactory(new PropertyValueFactory<TableRowAccountTransactions, String>("transactionDate"));
 		tabSenderReceiver
 				.setCellValueFactory(new PropertyValueFactory<TableRowAccountTransactions, String>("senderReceiver"));
@@ -207,8 +203,6 @@ public class AccountDetailViewController {
 			txtHeader.setText("Detailansicht Konto " + currentAccount.getNumber());
 			txtOwnerTextInput.setText(currentAccount.getOwner());
 			serverAccess.setAccountBalance(accountBalance);
-
-			// ToDo: Spalte "Datum" breiter machen
 		}
 
 		ObservableList<TableRowAccountTransactions> data = FXCollections.observableList(tableRows);

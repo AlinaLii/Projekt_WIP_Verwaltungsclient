@@ -152,8 +152,6 @@ public class ServerAccess {
 		return httpResponse;
 	}
 
-
-
 	public HttpResponse updateOwner(String number, String owner) throws ClientProtocolException, IOException {
 
 		final HttpParams httpParams = new BasicHttpParams();

@@ -54,14 +54,17 @@ public class AccountDetailViewController {
 	@FXML
 	private ImageView imgLogo;
 
-    @FXML
-    private Button btnBack;
+	@FXML
+	private Button btnBack;
 
-    @FXML
-    private Button btnSave;
+	@FXML
+	private Button btnSave;
 
-    @FXML
-    private Text txtError;
+	@FXML
+	private Text txtError;
+
+	@FXML
+	private Text txtError1;
 
 	@FXML
 	private TableView<TableRowAccountTransactions> tabTransaction;
@@ -85,6 +88,38 @@ public class AccountDetailViewController {
 
 	@FXML
 	private Text txtAccBalance;
+
+	@FXML
+	private Button btnRefresh;
+
+	@FXML
+	void refreshBtnAction(ActionEvent event) {
+
+		initData(refreshAccount());
+
+	}
+
+	protected Account refreshAccount() {
+		try {
+			HttpResponse response = serverAccess.getAccountResponse(currentAccount.getNumber());
+			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+				String accountNumber = EntityUtils.toString(response.getEntity());
+				Gson gson = new GsonBuilder().create();
+				Account account = gson.fromJson(accountNumber, Account.class);
+				;
+				ServerAccess.setAccount(account);
+				txtError1.setText("");
+				return account;
+			} else {
+				txtError1.setText(EntityUtils.toString(response.getEntity()) + " (Fehler: "
+						+ response.getStatusLine().getStatusCode() + ")");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			txtError1.setText("Server nicht verfügbar");
+		}
+		return null;
+	}
 
 	@FXML
 	void backBtnAction(ActionEvent event) {
@@ -132,8 +167,7 @@ public class AccountDetailViewController {
 	}
 
 	void initData(Account account) {
-		// eine globale var in klasse erstellen die current accounthei´t und
-		// dann account in die tabelle laden ->nadin
+
 		this.currentAccount = account;
 		System.out.println(currentAccount.getBalance());
 		tabDate.setCellValueFactory(new PropertyValueFactory<TableRowAccountTransactions, String>("transactionDate"));

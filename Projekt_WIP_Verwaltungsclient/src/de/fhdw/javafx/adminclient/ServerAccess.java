@@ -16,16 +16,17 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 public class ServerAccess {
 
 	static Account account;
-
 	static ArrayList<Account> accountList;
-
 	static BigDecimal accountBalance;
-
 	private static String ipAddress = "127.0.0.1";
+	private int timeout = 2000;
 
 	public static ArrayList<Account> getAccountList() {
 		return accountList;
@@ -63,26 +64,29 @@ public class ServerAccess {
 	public HttpResponse getAccountResponse(String accountNumber) throws ClientProtocolException, IOException {
 
 		HttpResponse response;
-		HttpClient client = HttpClients.createDefault();
+		final HttpParams httpParams = new BasicHttpParams();
+	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
+	    DefaultHttpClient client = new DefaultHttpClient(httpParams);
 		HttpGet get = new HttpGet(String.format("http://%s:9998/rest/account/%s", ipAddress, accountNumber));
 		return response = client.execute(get);
 
 	}
 
 	public HttpResponse getAllAccountResponse() throws ClientProtocolException, IOException {
-
 		HttpResponse response;
-		HttpClient client = HttpClients.createDefault();
+		final HttpParams httpParams = new BasicHttpParams();
+	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
+	    DefaultHttpClient client = new DefaultHttpClient(httpParams);
 		HttpGet get = new HttpGet(String.format("http://%s:9998/rest/allAccounts", ipAddress));
 		return response = client.execute(get);
-
 	}
 
 	public HttpResponse getAllTransactionsResponse() throws ClientProtocolException, IOException {
 
 		HttpResponse response;
-		HttpClient client = HttpClients.createDefault();
-		System.out.println(String.format("http://%s:9998/rest/allTransactions", ipAddress));
+		final HttpParams httpParams = new BasicHttpParams();
+	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
+	    DefaultHttpClient client = new DefaultHttpClient(httpParams);
 		HttpGet get = new HttpGet(String.format("http://%s:9998/rest/allTransactions", ipAddress));
 		return response = client.execute(get);
 
@@ -91,7 +95,9 @@ public class ServerAccess {
 	public HttpResponse getFreeAccountNumberResponse() throws ClientProtocolException, IOException {
 
 		HttpResponse response;
-		HttpClient client = HttpClients.createDefault();
+		final HttpParams httpParams = new BasicHttpParams();
+	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
+	    DefaultHttpClient client = new DefaultHttpClient(httpParams);
 		HttpGet get = new HttpGet(String.format("http://%s:9998/rest/freeNumber", ipAddress));
 		return response = client.execute(get);
 
@@ -100,7 +106,9 @@ public class ServerAccess {
 	public HttpResponse postTransaction(String senderNumber, String receiverNumber, String amount, String reference)
 			throws ClientProtocolException, IOException {
 
-		HttpClient client = new DefaultHttpClient();
+		final HttpParams httpParams = new BasicHttpParams();
+	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
+	    DefaultHttpClient client = new DefaultHttpClient(httpParams);
 		HttpPost post = new HttpPost(String.format("http://%s:9998/rest/transaction", ipAddress));
 		List<NameValuePair> parameterList = new ArrayList<>();
 		parameterList.add(new BasicNameValuePair("senderNumber", senderNumber));
@@ -116,7 +124,9 @@ public class ServerAccess {
 
 	public HttpResponse cancelReservation(String number) throws ClientProtocolException, IOException {
 
-		HttpClient client = new DefaultHttpClient();
+		final HttpParams httpParams = new BasicHttpParams();
+	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
+	    DefaultHttpClient client = new DefaultHttpClient(httpParams);
 		HttpPost post = new HttpPost(String.format("http://%s:9998/rest/recallNumberReservation", ipAddress));
 		List<NameValuePair> parameterList = new ArrayList<>();
 		parameterList.add(new BasicNameValuePair("number", number));
@@ -129,7 +139,9 @@ public class ServerAccess {
 
 	public HttpResponse addAccount(String owner, String startBalance) throws ClientProtocolException, IOException {
 
-		HttpClient client = new DefaultHttpClient();
+		final HttpParams httpParams = new BasicHttpParams();
+	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
+	    DefaultHttpClient client = new DefaultHttpClient(httpParams);
 		HttpPost post = new HttpPost(String.format("http://%s:9998/rest/addAccount", ipAddress));
 		List<NameValuePair> parameterList = new ArrayList<>();
 		parameterList.add(new BasicNameValuePair("owner", owner));
@@ -145,7 +157,9 @@ public class ServerAccess {
 
 	public HttpResponse updateOwner(String number, String owner) throws ClientProtocolException, IOException {
 
-		HttpClient client = new DefaultHttpClient();
+		final HttpParams httpParams = new BasicHttpParams();
+	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
+	    DefaultHttpClient client = new DefaultHttpClient(httpParams);
 		HttpPost post = new HttpPost(String.format("http://%s:9998/rest/updateOwner", ipAddress));
 		List<NameValuePair> parameterList = new ArrayList<>();
 		parameterList.add(new BasicNameValuePair("number", number));

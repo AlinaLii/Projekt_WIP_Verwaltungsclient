@@ -65,6 +65,9 @@ public class TransactionViewController {
 
     @FXML
     private Button btnAccountView;
+    
+    @FXML
+    private Text txtError;
 
     @FXML
     void AccountViewBtnAction(ActionEvent event) {
@@ -79,8 +82,7 @@ public class TransactionViewController {
 			stage.setScene(scene);
 			stage.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			txtError.setText("Der Server ist nicht verfügbar.");
 		}
     }
 
@@ -109,17 +111,17 @@ public class TransactionViewController {
 				Gson gson = new GsonBuilder().create();
 				Transaction[] transactionArray = gson.fromJson(transactionsJson, Transaction[].class);
 				ArrayList<Transaction> transactionList = new ArrayList<Transaction>(Arrays.asList(transactionArray));
-				// ServerAccess.setAccountList(transactionList);
-				// txtError.setText("");
+				//ServerAccess.setAccountList(transactionList);
+				txtError.setText("");
 				return transactionList;
 			} else {
-				// txtError.setText(EntityUtils.toString(response.getEntity()) +
-				// " (Fehler: " + response.getStatusLine().getStatusCode() +
-				// ")");
+				txtError.setText(EntityUtils.toString(response.getEntity()) +
+				" (Fehler: " + response.getStatusLine().getStatusCode() +
+				")");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			// txtError.setText("Server nicht verfügbar");
+			txtError.setText("Server nicht verfügbar");
 		}
 		return null;
 	}
@@ -148,7 +150,6 @@ public class TransactionViewController {
 
 		ObservableList<TableRowAllTransactions> data = FXCollections.observableList(tableRows);
 		tabTransaction.setItems(data);
-
 	}
 
 }

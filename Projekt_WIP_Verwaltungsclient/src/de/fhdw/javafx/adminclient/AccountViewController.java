@@ -101,8 +101,7 @@ public class AccountViewController {
 			stage.setScene(scene);
 			stage.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			txtError.setText("Server nicht verfügbar.");
 		}
 	}
 

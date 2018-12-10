@@ -61,9 +61,6 @@ public class AccountDetailViewController {
     private Button btnSave;
 
     @FXML
-    private Button btnRefresh;
-
-    @FXML
     private Text txtError;
 
 	@FXML
@@ -88,11 +85,6 @@ public class AccountDetailViewController {
 
 	@FXML
 	private Text txtAccBalance;
-
-	@FXML
-	private void initialize() {
-
-	}
 
 	@FXML
 	void backBtnAction(ActionEvent event) {
@@ -134,16 +126,14 @@ public class AccountDetailViewController {
 		}
 	}
 
-    @FXML
-    void refreshBtnAction(ActionEvent event) {
-		refreshFnkt();
-    }
-
-	public void refreshFnkt() {
+	@FXML
+	private void initialize() {
 
 	}
 
 	void initData(Account account) {
+		// eine globale var in klasse erstellen die current accounthei´t und
+		// dann account in die tabelle laden ->nadin
 		this.currentAccount = account;
 		System.out.println(currentAccount.getBalance());
 		tabDate.setCellValueFactory(new PropertyValueFactory<TableRowAccountTransactions, String>("transactionDate"));
@@ -183,6 +173,8 @@ public class AccountDetailViewController {
 			txtHeader.setText("Detailansicht Konto " + currentAccount.getNumber());
 			txtOwnerTextInput.setText(currentAccount.getOwner());
 			serverAccess.setAccountBalance(accountBalance);
+
+			// ToDo: Spalte "Datum" breiter machen
 		}
 
 		ObservableList<TableRowAccountTransactions> data = FXCollections.observableList(tableRows);

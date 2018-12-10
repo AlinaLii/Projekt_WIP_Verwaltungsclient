@@ -24,7 +24,7 @@
          <font>
             <Font size="29.0" />
          </font></Text>
-      <TableView fx:id="tabTransaction" layoutX="137.0" layoutY="299.0"prefHeight="401.0" prefWidth="733.0" style="-fx-background-color: grey;">
+      <TableView fx:id="tabTransaction" layoutX="137.0" layoutY="299.0" prefHeight="401.0" prefWidth="733.0" style="-fx-background-color: grey;">
         <columns>
           <TableColumn fx:id="tabDate" prefWidth="150.0" text="Datum" />
           <TableColumn fx:id="tabSenderReceiver" minWidth="0.0" prefWidth="144.0" text="Sender / Empfänger" />
@@ -43,6 +43,7 @@
             <Image url="@Deutsche%20Bertelsbank.png" />
          </image>
       </ImageView>
-      <Text fx:id="txtError2" fill="RED" layoutX="137.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="51.00002884864807" />
+      <Button fx:id="btnRefresh" layoutX="138.0" layoutY="266.0" mnemonicParsing="false" text="aktualisieren" />
+      <Text fx:id="txtError1" fill="RED" layoutX="229.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="51.00002884864807" />
    </children>
 </AnchorPane>

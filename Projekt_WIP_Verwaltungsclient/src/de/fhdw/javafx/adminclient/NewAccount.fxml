@@ -41,7 +41,7 @@
       <Text fx:id="txtError" fill="RED" layoutX="50.0" layoutY="415.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="905.9999960660934" />
       <ImageView fx:id="imgLogo" fitHeight="115.0" fitWidth="131.0" layoutX="862.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Deutsche%20Bertelsbank.png" />
+            <Image url="@.\\images\\DeutscheBertelsbank.png" />
          </image>
       </ImageView>
    </children>

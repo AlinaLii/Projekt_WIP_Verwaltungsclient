@@ -24,6 +24,7 @@
          <font>
             <Font size="29.0" />
          </font></Text>
+      <ImageView fx:id="imgLogo" fitHeight="83.0" fitWidth="72.0" layoutX="888.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
       <TableView fx:id="tabTransaction" layoutX="137.0" layoutY="299.0" prefHeight="401.0" prefWidth="733.0" style="-fx-background-color: grey;">
         <columns>
           <TableColumn fx:id="tabDate" prefWidth="150.0" text="Datum" />
@@ -33,17 +34,15 @@
             <TableColumn fx:id="tabReference" minWidth="0.0" prefWidth="148.0" text="Verwendungszweck" />
         </columns>
       </TableView>
-      <Button fx:id="btnSave" layoutX="388.0" layoutY="182.0" mnemonicParsing="false" onAction="#saveBtnAction" text="speichern" />
+      <Button fx:id="btnSave" layoutX="388.0" layoutY="182.0" mnemonicParsing="false" onAction="#saveBtnAction" text="Speichern" />
       <TextField fx:id="txtOwnerTextInput" layoutX="218.0" layoutY="182.0" />
       <Text fx:id="txtAccBalance" layoutX="218.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
       <Button fx:id="btnBack" layoutX="15.0" layoutY="12.0" mnemonicParsing="false" onAction="#backBtnAction" text="zurück" />
       <Text fx:id="txtError" fill="RED" layoutX="465.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <ImageView fx:id="imgLogo" fitHeight="115.0" fitWidth="131.0" layoutX="864.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Deutsche%20Bertelsbank.png" />
+            <Image url="@.\\images\\DeutscheBertelsbank.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnRefresh" layoutX="138.0" layoutY="266.0" mnemonicParsing="false" text="aktualisieren" />
-      <Text fx:id="txtError1" fill="RED" layoutX="229.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="51.00002884864807" />
    </children>
 </AnchorPane>

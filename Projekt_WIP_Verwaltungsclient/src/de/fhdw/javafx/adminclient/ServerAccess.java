@@ -136,13 +136,14 @@ public class ServerAccess {
 		return httpResponse;
 	}
 
-	public HttpResponse addAccount(String owner, String startBalance) throws ClientProtocolException, IOException {
+	public HttpResponse addAccount(String accountNumber, String owner, String startBalance) throws ClientProtocolException, IOException {
 
 		final HttpParams httpParams = new BasicHttpParams();
 	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
 	    DefaultHttpClient client = new DefaultHttpClient(httpParams);
 		HttpPost post = new HttpPost(String.format("http://%s/rest/addAccount", ipAddress));
 		List<NameValuePair> parameterList = new ArrayList<>();
+		parameterList.add(new BasicNameValuePair("accountNumber", accountNumber));
 		parameterList.add(new BasicNameValuePair("owner", owner));
 		parameterList.add(new BasicNameValuePair("startBalance", startBalance));
 		UrlEncodedFormEntity form = new UrlEncodedFormEntity(parameterList, "UTF-8");

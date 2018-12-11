@@ -106,20 +106,19 @@ public class NewAccountController {
 
 	@FXML
 	void saveBtnAction(ActionEvent event) {
-		System.out.println(txtAccountOwner.getText() + "--" + txtStartBalance.getText());
+		//System.out.println(txtAccountOwner.getText() + "--" + txtStartBalance.getText());
 			try {
 
 			if (!freeNumber.equals("")) {
-				HttpResponse httpResponse = serverAccess.addAccount(txtAccountOwner.getText(), txtStartBalance.getText());
-
+				System.out.println(freeNumber);
+				//System.out.println(txtAccountOwner.getText());
+				HttpResponse httpResponse = serverAccess.addAccount(freeNumber, txtAccountOwner.getText(), txtStartBalance.getText());
 
 				int statusCode = httpResponse.getStatusLine().getStatusCode();
 				String entityMsg = "";
 				if (statusCode != HttpStatus.SC_OK) {
 					entityMsg = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
 					String errorMsg = entityMsg + " (Fehler " + httpResponse.getStatusLine().getStatusCode() + ")";
-					// errorText.setText(entityMsg + errorMsg); später
-					// reinnehmen nach fehlerfeld
 					txtError.setText(errorMsg);
 				} else {
 					Stage stage;

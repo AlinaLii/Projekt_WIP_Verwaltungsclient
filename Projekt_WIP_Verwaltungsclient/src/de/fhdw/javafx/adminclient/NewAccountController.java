@@ -49,7 +49,7 @@ public class NewAccountController {
 
 	String freeNumber = "";
 
-	
+
 	public void setNumber(String number) {
 		txtAccountNumber.setText(number);
 		freeNumber = number;
@@ -59,7 +59,7 @@ public class NewAccountController {
 	void cancelBtnAction(ActionEvent event) {
 		try {
 			if (freeNumber != "") {
-				HttpResponse httpResponse = serverAccess.cancelReservation(freeNumber);
+				serverAccess.cancelReservation(freeNumber);
 			}
 
 			Stage stage;

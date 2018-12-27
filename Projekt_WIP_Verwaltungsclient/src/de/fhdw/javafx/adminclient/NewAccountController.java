@@ -3,7 +3,6 @@ package de.fhdw.javafx.adminclient;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.util.EntityUtils;
@@ -28,8 +27,8 @@ public class NewAccountController {
 	@FXML
 	private Text txtHeader;
 
-    @FXML
-    private Text txtError;
+	@FXML
+	private Text txtError;
 
 	@FXML
 	private TextField txtAccountOwner;
@@ -39,9 +38,8 @@ public class NewAccountController {
 	@FXML
 	private Text txtAccountNumber;
 
-
-    @FXML
-    private ImageView imgLogo;
+	@FXML
+	private ImageView imgLogo;
 
 	@FXML
 	private Button btnSave;
@@ -51,42 +49,17 @@ public class NewAccountController {
 
 	String freeNumber = "";
 
-	@FXML
-	void initialize() {
-		try {
-
-			HttpResponse response = serverAccess.getFreeAccountNumberResponse();
-			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				freeNumber = EntityUtils.toString(response.getEntity());
-				txtAccountNumber.setText(freeNumber);
-
-			} else {
-
-				// neues Textfeld in scenebuikder für fehlercode
-				// Textfeld für Fehlermeldungen in jeder view wo auf den server
-				// zugegriffen wird
-			}
-		} catch (IOException e) {
-			// in das o.g. textfeld server nicht gefunden feeehler
-		}
-
+	
+	public void setNumber(String number) {
+		txtAccountNumber.setText(number);
+		freeNumber = number;
 	}
 
 	@FXML
 	void cancelBtnAction(ActionEvent event) {
 		try {
 			if (freeNumber != "") {
-
 				HttpResponse httpResponse = serverAccess.cancelReservation(freeNumber);
-
-				int statusCode = httpResponse.getStatusLine().getStatusCode();
-				String entityMsg = "";
-				if (statusCode != HttpStatus.SC_NO_CONTENT) {
-					entityMsg = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
-					String errorMsg = " (Fehler " + httpResponse.getStatusLine().getStatusCode() + ")";
-					// errorText.setText(entityMsg + errorMsg); später
-					// reinnehmen nach fehlerfeld
-				}
 			}
 
 			Stage stage;
@@ -106,13 +79,15 @@ public class NewAccountController {
 
 	@FXML
 	void saveBtnAction(ActionEvent event) {
-		//System.out.println(txtAccountOwner.getText() + "--" + txtStartBalance.getText());
-			try {
+		// System.out.println(txtAccountOwner.getText() + "--" +
+		// txtStartBalance.getText());
+		try {
 
 			if (!freeNumber.equals("")) {
 				System.out.println(freeNumber);
-				//System.out.println(txtAccountOwner.getText());
-				HttpResponse httpResponse = serverAccess.addAccount(freeNumber, txtAccountOwner.getText(), txtStartBalance.getText());
+				// System.out.println(txtAccountOwner.getText());
+				HttpResponse httpResponse = serverAccess.addAccount(freeNumber, txtAccountOwner.getText(),
+						txtStartBalance.getText());
 
 				int statusCode = httpResponse.getStatusLine().getStatusCode();
 				String entityMsg = "";
@@ -132,7 +107,7 @@ public class NewAccountController {
 					stage.show();
 
 				}
-			 } else {
+			} else {
 				txtError.setText("Konto konnte nicht angelegt werden.");
 			}
 		} catch (IOException e) {

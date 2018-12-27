@@ -80,7 +80,8 @@ public class AccountViewController {
 		accountList = ServerAccess.getAccountList();
 		fillTable();
 	}
-//aktualisieren button
+
+	// aktualisieren button
 	@FXML
 	void refreshBtnAction(ActionEvent event) {
 		ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
@@ -109,17 +110,25 @@ public class AccountViewController {
 	void newAccountBtnAction(ActionEvent event) {
 		ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
 		try {
-			Stage stage;
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("NewAccount.fxml"));
-			Parent root = null;
-			root = loader.<Parent>load();
-			NewAccountController controller = loader.<NewAccountController>getController();
-			Scene scene = new Scene(root);
-			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			stage.setScene(scene);
-			stage.show();
+			HttpResponse response = serverAccess.getFreeAccountNumberResponse();
+			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+				String freeNumber = EntityUtils.toString(response.getEntity());
+				Stage stage;
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("NewAccount.fxml"));
+				Parent root = null;
+				root = loader.<Parent>load();
+				NewAccountController controller = loader.<NewAccountController>getController();
+				controller.setNumber(freeNumber);
+				Scene scene = new Scene(root);
+				stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				stage.setScene(scene);
+				stage.show();
+			} else {
+				txtError.setText("Server nicht verfügbar.");
+			}
+
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			txtError.setText("Server nicht verfügbar.");
 			e.printStackTrace();
 		}
 
@@ -165,9 +174,8 @@ public class AccountViewController {
 				txtError.setText("");
 				return accountList;
 			} else {
-				txtError.setText(EntityUtils.toString(response.getEntity())
-				+ " (Fehler: " + response.getStatusLine().getStatusCode() +
-				")");
+				txtError.setText(EntityUtils.toString(response.getEntity()) + " (Fehler: "
+						+ response.getStatusLine().getStatusCode() + ")");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

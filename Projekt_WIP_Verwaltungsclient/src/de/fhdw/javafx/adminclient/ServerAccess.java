@@ -26,7 +26,7 @@ public class ServerAccess {
 	static ArrayList<Account> accountList;
 	static BigDecimal accountBalance;
 	private static String ipAddress = "127.0.0.1:9998";
-	private int timeout = 2000;
+	private int timeout = 3000;
 
 	public static ArrayList<Account> getAccountList() {
 		return accountList;

@@ -190,7 +190,7 @@ public class AccountDetailViewController<currentAccount> {
 	/**
 	 * inserts the respective data into the table.
 	 *
-	 * @param account
+	 * @param account current account
 	 * @author Alina Liedtke
 	 */
 	public void initData(Account account) {

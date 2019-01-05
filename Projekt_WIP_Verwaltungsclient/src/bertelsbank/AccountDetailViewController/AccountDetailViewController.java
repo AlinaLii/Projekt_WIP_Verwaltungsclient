@@ -99,7 +99,7 @@ public class AccountDetailViewController<currentAccount> {
 
 	/**
 	 * When the refresh-button is clicked the function calls the initData-function.
-	 * 
+	 *
 	 * @param event
 	 * @author Alina Liedtke
 	 */
@@ -110,8 +110,8 @@ public class AccountDetailViewController<currentAccount> {
 
 	/**
 	 *Returns account. If no account exists returns NULL.
-	 * 
-	 * @return account
+	 *
+	 * @return account a specific account that belongs to the bank
 	 * @author Alina Liedtke
 	 */
 	public Account refreshAccount() {
@@ -137,7 +137,7 @@ public class AccountDetailViewController<currentAccount> {
 
 	/**
 	 * When the back-button is clicked the view changes to Account View.
-	 * 
+	 *
 	 * @param event Back-Button is pressed
 	 * @author Alina Liedtke
 	 */
@@ -160,7 +160,7 @@ public class AccountDetailViewController<currentAccount> {
 
 	/**
 	 * If you click the button the new name will be saved. This will be displayed in a message.
-	 * 
+	 *
 	 * @param event The save-button is clicked
 	 *@author Alina Liedtke
 	 */

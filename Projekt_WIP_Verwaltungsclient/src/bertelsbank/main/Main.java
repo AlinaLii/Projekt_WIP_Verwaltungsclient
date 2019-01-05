@@ -10,7 +10,7 @@ import javafx.fxml.FXMLLoader;
 public class Main extends Application {
 	protected static Stage primaryStage;
 
-	
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -23,12 +23,6 @@ public class Main extends Application {
 		}
 	}
 
-	/**
-	 * Starts the program
-	 * 
-	 * @param args
-	 * @author Alina Liedtke
-	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

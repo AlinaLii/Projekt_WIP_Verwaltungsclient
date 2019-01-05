@@ -42,6 +42,21 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * @author Alina Liedtke
+ *
+ * @param <currentAccount>
+ */
+/**
+ * @author Alina Liedtke
+ *
+ * @param <currentAccount>
+ */
+/**
+ * @author Alina Liedtke
+ *
+ * @param <currentAccount>
+ */
 public class AccountDetailViewController<currentAccount> {
 
 	ServerAccess serverAccess = new ServerAccess();
@@ -167,6 +182,12 @@ public class AccountDetailViewController<currentAccount> {
 	private void initialize() {
 	}
 
+	/**
+	 * description
+	 *
+	 * @param account
+	 * @author Alina Liedtke
+	 */
 	public void initData(Account account) {
 
 		currentAccount = account;
@@ -193,8 +214,7 @@ public class AccountDetailViewController<currentAccount> {
 				accountBalance = accountBalance.subtract(transaction.getAmount());
 				BigDecimal negative = new BigDecimal(-1);
 				tableRow.setAmount(transaction.getAmount().multiply(negative));
-			} else {
-				tableRow.setSenderReceiver(transaction.getSender().getOwner());
+			} else { tableRow.setSenderReceiver(transaction.getSender().getOwner());
 				tableRow.setAccountNumber(transaction.getSender().getNumber());
 				accountBalance = accountBalance.add(transaction.getAmount());
 				tableRow.setAmount(transaction.getAmount());

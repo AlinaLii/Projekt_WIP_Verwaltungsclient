@@ -1,4 +1,4 @@
-package de.fhdw.javafx.adminclient;
+package bertelsbank.NewAccountController;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -7,6 +7,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.util.EntityUtils;
 
+import bertelsbank.AccountViewController.AccountViewController;
+import de.fhdw.javafx.adminclient.ServerAccess;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,7 +65,7 @@ public class NewAccountController {
 			}
 
 			Stage stage;
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/bertelsbank/AccountViewController/AccountView.fxml"));
 			Parent root = null;
 			root = loader.<Parent>load();
 			AccountViewController controller = loader.<AccountViewController>getController();
@@ -97,7 +99,7 @@ public class NewAccountController {
 					txtError.setText(errorMsg);
 				} else {
 					Stage stage;
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountView.fxml"));
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/bertelsbank/AccountViewController/AccountView.fxml"));
 					Parent root = null;
 					root = loader.<Parent>load();
 					AccountViewController controller = loader.<AccountViewController>getController();

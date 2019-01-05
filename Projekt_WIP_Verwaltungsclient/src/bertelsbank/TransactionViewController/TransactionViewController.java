@@ -1,4 +1,4 @@
-package de.fhdw.javafx.adminclient;
+package bertelsbank.TransactionViewController;
 
 import java.io.IOException;
 
@@ -30,6 +30,11 @@ import org.apache.http.util.EntityUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import bertelsbank.AccountViewController.AccountViewController;
+import de.fhdw.javafx.adminclient.ServerAccess;
+import de.fhdw.javafx.adminclient.TableRowAllTransactions;
+import de.fhdw.javafx.adminclient.Transaction;
 
 public class TransactionViewController {
 
@@ -63,17 +68,18 @@ public class TransactionViewController {
 	@FXML
 	private Text txtHeader;
 
-    @FXML
-    private Button btnAccountView;
-    
-    @FXML
-    private Text txtError;
+	@FXML
+	private Button btnAccountView;
 
-    @FXML
-    void AccountViewBtnAction(ActionEvent event) {
+	@FXML
+	private Text txtError;
+
+	@FXML
+	void AccountViewBtnAction(ActionEvent event) {
 		try {
 			Stage stage;
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountView.fxml"));
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getResource("/bertelsbank/AccountViewController/AccountView.fxml"));
 			Parent root = null;
 			root = loader.<Parent>load();
 			AccountViewController controller = loader.<AccountViewController>getController();
@@ -84,13 +90,14 @@ public class TransactionViewController {
 		} catch (IOException e) {
 			txtError.setText("Der Server ist nicht verfügbar.");
 		}
-    }
-
+	}
 
 	@FXML
 	private void initialize() {
 		transactionList = refreshTransactions();
-		fillTable();
+		if (transactionList != null) {
+			fillTable();
+		}
 	}
 
 	@FXML
@@ -111,13 +118,12 @@ public class TransactionViewController {
 				Gson gson = new GsonBuilder().create();
 				Transaction[] transactionArray = gson.fromJson(transactionsJson, Transaction[].class);
 				ArrayList<Transaction> transactionList = new ArrayList<Transaction>(Arrays.asList(transactionArray));
-				//ServerAccess.setAccountList(transactionList);
+				// ServerAccess.setAccountList(transactionList);
 				txtError.setText("");
 				return transactionList;
 			} else {
-				txtError.setText(EntityUtils.toString(response.getEntity()) +
-				" (Fehler: " + response.getStatusLine().getStatusCode() +
-				")");
+				txtError.setText(EntityUtils.toString(response.getEntity()) + " (Fehler: "
+						+ response.getStatusLine().getStatusCode() + ")");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="bertelsbank.AccountViewController.AccountViewController">
+   <children>
+      <TableView fx:id="tabAccount" layoutX="10.0" layoutY="140.0" onMouseClicked="#clickItem" prefHeight="410.0" prefWidth="733.0" style="-fx-background-color: grey;">
+         <columns>
+            <TableColumn fx:id="tabAccNumber" prefWidth="242.0" text="Kontonummer" />
+            <TableColumn fx:id="tabAccOwner" minWidth="0.0" prefWidth="253.0" text="Kontoinhaber" />
+            <TableColumn fx:id="tabAccBalance" minWidth="0.0" prefWidth="237.0" text="Kontostand in €" />
+         </columns>
+      </TableView>
+      <Button fx:id="btnRefresh" layoutX="11.0" layoutY="108.0" mnemonicParsing="false" onAction="#refreshBtnAction" text="Aktualisieren" />
+      <Button fx:id="btnNewAccount" layoutX="105.0" layoutY="108.0" mnemonicParsing="false" onAction="#newAccountBtnAction" text="Konto hinzufügen" />
+      <Text fx:id="txtHeader" layoutX="9.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontenübersicht">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Text>
+      <Button fx:id="btnTransactionView" layoutX="11.0" layoutY="12.0" mnemonicParsing="false" onAction="#transactionViewBtnAction" text="Transaktionenübersicht" />
+      <TextField fx:id="txtInputIPAddress" layoutX="299.0" layoutY="107.0" promptText="localhost:9998" text="localhost:9998" />
+      <ImageView fx:id="imgLogo1" fitHeight="115.0" fitWidth="131.0" layoutX="653.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Deutsche%20Bertelsbank.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="236.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IP-Adresse:" />
+      <Text layoutX="453.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bitte nach Änderung der IP aktualisieren.">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtError" fill="RED" layoutX="11.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+   </children>
+</AnchorPane>

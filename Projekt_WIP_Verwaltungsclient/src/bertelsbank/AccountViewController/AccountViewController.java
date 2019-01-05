@@ -1,4 +1,4 @@
-package de.fhdw.javafx.adminclient;
+package bertelsbank.AccountViewController;
 
 import java.io.IOException;
 import javafx.scene.control.TabPane;
@@ -15,6 +15,12 @@ import org.apache.http.util.EntityUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import bertelsbank.NewAccountController.NewAccountController;
+import bertelsbank.TransactionViewController.TransactionViewController;
+import de.fhdw.javafx.adminclient.Account;
+import bertelsbank.AccountDetailViewController.AccountDetailViewController;
+import de.fhdw.javafx.adminclient.ServerAccess;
+import de.fhdw.javafx.adminclient.Transaction;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -78,7 +84,9 @@ public class AccountViewController {
 		txtInputIPAddress.setText(ServerAccess.getIpAddress());
 		refreshAccount();
 		accountList = ServerAccess.getAccountList();
-		fillTable();
+		if (accountList != null) {
+			fillTable();
+		}
 	}
 
 	// aktualisieren button
@@ -93,7 +101,8 @@ public class AccountViewController {
 		ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
 		try {
 			Stage stage;
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("TransactionView.fxml"));
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getResource("/bertelsbank/TransactionViewController/TransactionView.fxml"));
 			Parent root = null;
 			root = loader.<Parent>load();
 			TransactionViewController controller = loader.<TransactionViewController>getController();
@@ -114,7 +123,8 @@ public class AccountViewController {
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				String freeNumber = EntityUtils.toString(response.getEntity());
 				Stage stage;
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("NewAccount.fxml"));
+				FXMLLoader loader = new FXMLLoader(
+						getClass().getResource("/bertelsbank/NewAccountController/NewAccount.fxml"));
 				Parent root = null;
 				root = loader.<Parent>load();
 				NewAccountController controller = loader.<NewAccountController>getController();
@@ -191,7 +201,8 @@ public class AccountViewController {
 		{
 			try {
 				Stage stage;
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountDetailView.fxml"));
+				FXMLLoader loader = new FXMLLoader(
+						getClass().getResource("/bertelsbank/AccountDetailViewController/AccountDetailView.fxml"));
 				Parent root = null;
 				root = loader.<Parent>load();
 				AccountDetailViewController controller = loader.<AccountDetailViewController>getController();

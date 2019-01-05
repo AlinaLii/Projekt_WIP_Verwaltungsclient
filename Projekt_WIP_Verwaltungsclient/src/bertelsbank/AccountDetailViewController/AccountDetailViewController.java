@@ -1,4 +1,4 @@
-package de.fhdw.javafx.adminclient;
+package bertelsbank.AccountDetailViewController;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -18,6 +18,11 @@ import org.apache.http.util.EntityUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import bertelsbank.AccountViewController.AccountViewController;
+import de.fhdw.javafx.adminclient.Account;
+import de.fhdw.javafx.adminclient.ServerAccess;
+import de.fhdw.javafx.adminclient.TableRowAccountTransactions;
+import de.fhdw.javafx.adminclient.Transaction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,7 +42,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class AccountDetailViewController {
+public class AccountDetailViewController<currentAccount> {
 
 	ServerAccess serverAccess = new ServerAccess();
 	Account currentAccount;
@@ -97,7 +102,7 @@ public class AccountDetailViewController {
 		initData(refreshAccount());
 	}
 
-	protected Account refreshAccount() {
+	public Account refreshAccount() {
 		try {
 			HttpResponse response = serverAccess.getAccountResponse(currentAccount.getNumber());
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
@@ -122,7 +127,7 @@ public class AccountDetailViewController {
 	void backBtnAction(ActionEvent event) {
 		try {
 			Stage stage;
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/bertelsbank/AccountViewController/AccountView.fxml"));
 			Parent root = null;
 			root = loader.<Parent>load();
 			AccountViewController controller = loader.<AccountViewController>getController();
@@ -162,7 +167,7 @@ public class AccountDetailViewController {
 	private void initialize() {
 	}
 
-	void initData(Account account) {
+	public void initData(Account account) {
 
 		currentAccount = account;
 		currentAccount = refreshAccount();

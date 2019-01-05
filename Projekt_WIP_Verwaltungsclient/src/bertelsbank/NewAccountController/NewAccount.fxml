@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="de.fhdw.javafx.adminclient.NewAccountController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="bertelsbank.NewAccountController.NewAccountController">
    <children>
       <Text fx:id="txtHeader" layoutX="50.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Neues Konto hinzufügen">
          <font>
@@ -27,8 +27,8 @@
       </Text>
       <TextField fx:id="txtAccountOwner" layoutX="206.0" layoutY="246.0" prefHeight="25.0" prefWidth="226.0" />
       <TextField fx:id="txtStartBalance" layoutX="206.0" layoutY="347.0" prefHeight="25.0" prefWidth="226.0" />
-      <Button fx:id="btnSave" layoutX="872.0" layoutY="626.0" mnemonicParsing="false" onAction="#saveBtnAction" text="Speichern" />
-      <Button fx:id="btnCancel" layoutX="61.0" layoutY="626.0" mnemonicParsing="false" onAction="#cancelBtnAction" text="Abbrechen" />
+      <Button fx:id="btnSave" layoutX="624.0" layoutY="469.0" mnemonicParsing="false" onAction="#saveBtnAction" text="Speichern" />
+      <Button fx:id="btnCancel" layoutX="50.0" layoutY="469.0" mnemonicParsing="false" onAction="#cancelBtnAction" text="Abbrechen" />
       <Text layoutX="50.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontonummer:">
          <font>
             <Font size="18.0" />
@@ -38,10 +38,10 @@
          <font>
             <Font size="18.0" />
          </font></Text>
-      <Text fx:id="txtError" fill="RED" layoutX="50.0" layoutY="415.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="905.9999960660934" />
-      <ImageView fx:id="imgLogo" fitHeight="115.0" fitWidth="131.0" layoutX="862.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+      <Text fx:id="txtError" fill="RED" layoutX="50.0" layoutY="402.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="676.9999960660934" />
+      <ImageView fx:id="imgLogo1" fitHeight="115.0" fitWidth="131.0" layoutX="601.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@.\\images\\DeutscheBertelsbank.png" />
+            <Image url="@Deutsche%20Bertelsbank.png" />
          </image>
       </ImageView>
    </children>

@@ -1,4 +1,4 @@
-package de.fhdw.javafx.adminclient;
+package bertelsbank.main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -13,7 +13,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("AccountView.fxml"));
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/bertelsbank/AccountViewController/AccountView.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.show();

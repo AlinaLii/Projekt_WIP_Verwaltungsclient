@@ -74,6 +74,25 @@ public class TransactionViewController {
 	@FXML
 	private Text txtError;
 
+	/**
+	 * Updates the list of transactions. If there isn't any content in the list it calls the function that fills the table.
+	 *
+	 * @author Alina Liedtke
+	 */
+	@FXML
+	private void initialize() {
+		transactionList = refreshTransactions();
+		if (transactionList != null) {
+			fillTable();
+		}
+	}
+
+	/**
+	 * When the account view-button is pressed the view changes to account view.
+	 *
+	 * @param event the account view-button is pressed
+	 * @author Alina Liedtke
+	 */
 	@FXML
 	void AccountViewBtnAction(ActionEvent event) {
 		try {
@@ -92,24 +111,34 @@ public class TransactionViewController {
 		}
 	}
 
-	@FXML
-	private void initialize() {
-		transactionList = refreshTransactions();
-		if (transactionList != null) {
-			fillTable();
-		}
-	}
 
+	/**
+	 * When the refresh-button is pressed the function refreshBtnAction is called.
+	 *
+	 * @param event refresh-button is pressed
+	 * @author Alina Liedtke
+	 */
 	@FXML
 	public void refreshBtnAction(ActionEvent event) {
 		refreshFnkt();
 	}
 
+	/**
+	 * Updates the transaction table.
+	 *
+	 * @author Alina Liedtke
+	 */
 	public void refreshFnkt() {
 		transactionList = refreshTransactions();
 		fillTable();
 	}
 
+	/**
+	 * Updates the transaction table. If this is not successful there are error messages.
+	 *
+	 * @return a list of all transactions
+	 * @author Alina Liedtke
+	 */
 	protected ArrayList<Transaction> refreshTransactions() {
 		try {
 			HttpResponse response = serverAccess.getAllTransactionsResponse();
@@ -118,7 +147,6 @@ public class TransactionViewController {
 				Gson gson = new GsonBuilder().create();
 				Transaction[] transactionArray = gson.fromJson(transactionsJson, Transaction[].class);
 				ArrayList<Transaction> transactionList = new ArrayList<Transaction>(Arrays.asList(transactionArray));
-				// ServerAccess.setAccountList(transactionList);
 				txtError.setText("");
 				return transactionList;
 			} else {
@@ -132,6 +160,11 @@ public class TransactionViewController {
 		return null;
 	}
 
+	/**
+	 * Loads the data (date, sender number, receiver number, amount, reference) into the transaction table.
+	 *
+	 * @author Alina Liedtke
+	 */
 	protected void fillTable() {
 		tabDate.setCellValueFactory(new PropertyValueFactory<TableRowAllTransactions, String>("transactionDate"));
 		tabSenderNumber.setCellValueFactory(new PropertyValueFactory<TableRowAllTransactions, String>("senderNumber"));

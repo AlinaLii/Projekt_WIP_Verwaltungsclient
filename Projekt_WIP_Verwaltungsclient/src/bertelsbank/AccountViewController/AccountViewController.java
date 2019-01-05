@@ -79,6 +79,11 @@ public class AccountViewController {
 	@FXML
 	private Text txtError;
 
+	/**
+	 * Connects to the server, updates the table
+	 *
+	 * @author Alina Liedtke
+	 */
 	@FXML
 	private void initialize() {
 		txtInputIPAddress.setText(ServerAccess.getIpAddress());
@@ -89,13 +94,24 @@ public class AccountViewController {
 		}
 	}
 
-	// aktualisieren button
+	/**
+	 * Updates the table, uses the given IP-address
+	 *
+	 * @param event refresh-button is pressed
+	 * @author Alina Liedtke
+	 */
 	@FXML
 	void refreshBtnAction(ActionEvent event) {
 		ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
 		refreshFnkt();
 	}
 
+	/**
+	 * When the transaction view-button is clicked the view changes to the transaction view, uses the given ip-address
+	 *
+	 * @param event transaction view-button is pressed
+	 * @author Alina Liedtke
+	 */
 	@FXML
 	void transactionViewBtnAction(ActionEvent event) {
 		ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
@@ -115,6 +131,12 @@ public class AccountViewController {
 		}
 	}
 
+	/**
+	 * When the new account-button is pressed the view changes to the new account-view using the given ip-address.
+	 *
+	 * @param event the new account-button is pressed
+	 * @author Alina Liedtke
+	 */
 	@FXML
 	void newAccountBtnAction(ActionEvent event) {
 		ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
@@ -144,11 +166,21 @@ public class AccountViewController {
 
 	}
 
+	/**
+	 * Updates the table.
+	 *
+	 * @author Alina Liedtke
+	 */
 	public void refreshFnkt() {
 		accountList = refreshAccount();
 		fillTable();
 	}
 
+	/**
+	 * Fills the table with the account number, account owner and account balance.
+	 *
+	 * @author Alina Liedtke
+	 */
 	protected void fillTable() {
 		tabAccNumber.setCellValueFactory(new PropertyValueFactory<Account, String>("number"));
 		tabAccOwner.setCellValueFactory(new PropertyValueFactory<Account, String>("owner"));
@@ -172,6 +204,12 @@ public class AccountViewController {
 
 	}
 
+	/**
+	 * Returns a list of all accounts that currently belong to the bank.
+	 *
+	 * @return accountList
+	 * @author Alina Liedtke
+	 */
 	protected ArrayList<Account> refreshAccount() {
 		try {
 			HttpResponse response = serverAccess.getAllAccountResponse();
@@ -194,6 +232,12 @@ public class AccountViewController {
 		return null;
 	}
 
+	/**
+	 * When an item out of the table is clicked the view changes to account detail view.
+	 *
+	 * @param mouseEvent When an item out of the table is clicked
+	 * @author Alina Liedtke
+	 */
 	@FXML
 	void clickItem(MouseEvent mouseEvent) {
 		ServerAccess.setIpAddress(txtInputIPAddress.getText().toString());
@@ -213,7 +257,6 @@ public class AccountViewController {
 				stage.show();
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

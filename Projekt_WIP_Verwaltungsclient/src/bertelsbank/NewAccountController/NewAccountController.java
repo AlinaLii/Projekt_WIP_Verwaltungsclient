@@ -57,6 +57,12 @@ public class NewAccountController {
 		freeNumber = number;
 	}
 
+	/**
+	 * When the cancel-button is pressed the view changes to account view.
+	 * 
+	 * @param event cancel-button is pressed
+	 * @author Alina Liedtke
+	 */
 	@FXML
 	void cancelBtnAction(ActionEvent event) {
 		try {
@@ -74,20 +80,22 @@ public class NewAccountController {
 			stage.setScene(scene);
 			stage.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * When the save-button is pressed the new account is saved to the database. Is that was not successful because of any user mistakes there is an error message.
+	 * 
+	 * @param event save-button is pressed
+	 * @author Alina Liedtke
+	 */
 	@FXML
 	void saveBtnAction(ActionEvent event) {
-		// System.out.println(txtAccountOwner.getText() + "--" +
-		// txtStartBalance.getText());
 		try {
 
 			if (!freeNumber.equals("")) {
 				System.out.println(freeNumber);
-				// System.out.println(txtAccountOwner.getText());
 				HttpResponse httpResponse = serverAccess.addAccount(freeNumber, txtAccountOwner.getText(),
 						txtStartBalance.getText());
 

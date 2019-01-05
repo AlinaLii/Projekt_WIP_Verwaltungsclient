@@ -42,21 +42,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-/**
- * @author Alina Liedtke
- *
- * @param <currentAccount>
- */
-/**
- * @author Alina Liedtke
- *
- * @param <currentAccount>
- */
-/**
- * @author Alina Liedtke
- *
- * @param <currentAccount>
- */
 public class AccountDetailViewController<currentAccount> {
 
 	ServerAccess serverAccess = new ServerAccess();
@@ -112,11 +97,23 @@ public class AccountDetailViewController<currentAccount> {
 	@FXML
 	private Button btnRefresh;
 
+	/**
+	 * When the refresh-button is clicked the function calls the initData-function.
+	 * 
+	 * @param event
+	 * @author Alina Liedtke
+	 */
 	@FXML
 	void refreshBtnAction(ActionEvent event) {
 		initData(refreshAccount());
 	}
 
+	/**
+	 *Returns account. If no account exists returns NULL.
+	 * 
+	 * @return account
+	 * @author Alina Liedtke
+	 */
 	public Account refreshAccount() {
 		try {
 			HttpResponse response = serverAccess.getAccountResponse(currentAccount.getNumber());
@@ -138,6 +135,12 @@ public class AccountDetailViewController<currentAccount> {
 		return null;
 	}
 
+	/**
+	 * When the back-button is clicked the view changes to Account View.
+	 * 
+	 * @param event Back-Button is pressed
+	 * @author Alina Liedtke
+	 */
 	@FXML
 	void backBtnAction(ActionEvent event) {
 		try {
@@ -151,11 +154,16 @@ public class AccountDetailViewController<currentAccount> {
 			stage.setScene(scene);
 			stage.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * If you click the button the new name will be saved. This will be displayed in a message.
+	 * 
+	 * @param event The save-button is clicked
+	 *@author Alina Liedtke
+	 */
 	@FXML
 	void saveBtnAction(ActionEvent event) {
 		try {
@@ -170,7 +178,7 @@ public class AccountDetailViewController<currentAccount> {
 				String errorMsg = " (Fehler " + httpResponse.getStatusLine().getStatusCode() + ")";
 				txtError.setText(entityMsg + errorMsg);
 			} else {
-				txtError.setText("Das Konto wurde erfolgreich umbenannt.");
+				txtError.setText("Der Kontoinhaber wurde erfolgreich umbenannt.");
 			}
 
 		} catch (IOException e) {
@@ -178,12 +186,9 @@ public class AccountDetailViewController<currentAccount> {
 		}
 	}
 
-	@FXML
-	private void initialize() {
-	}
 
 	/**
-	 * description
+	 * inserts the respective data into the table.
 	 *
 	 * @param account
 	 * @author Alina Liedtke
